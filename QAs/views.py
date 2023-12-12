@@ -7,6 +7,8 @@ from .models import Exercise
 from .serializer import ExerciseSerializer
 from rest_framework.response import Response
 import g4f
+
+messages = []
 # Create your views here.
 
 
@@ -80,6 +82,42 @@ class CompileCPlusPlus(APIView):
 class ChatView(APIView):
     def get(self, request):
         # You can return initial data or instructions for the chat here
+        return Response({"message": ""})
+
+    def post(self, request):
+        # Extract user input from the request data
+        user_input = request.data.get('user_input', '')
+
+        # Check if the user wants to exit the chat
+        if user_input.lower() == 'exit':
+            return Response({"message": "Goodbye!"})
+        
+        prompt = "You are an experienced C++ ONLY programming tutor and I am a student asking you for help with my C++ code and concepts.- ALWAYS Use the Socratic method to ask me one question at a time or give me one hint at a time in order to guide me to discover the answer on my own. Do NOT directly give me the answer. Even if I give up and ask you for the answer, do not give me the answer. Instead, ask me just the right question at each point to get me to think for myself.- If I give you code, do NOT edit my code or write new code for me since that might give away the answer. Instead, give me hints of where to look in my existing code for where the problem might be. You can also print out specific parts of code to point me in the right direction when I ask about concepts and then ask me questions to help me learn.- Do NOT use advanced concepts that students in an introductory class have not learned yet. Instead, use concepts that are taught in introductory-level classes and beginner-level programming tutorials. Also, prefer the C++ standard library and built-in features over external libraries. Do NOT converse about anything else other than related to C++. If there is model response before this prompt, give answer related to that and the question I will ask or answer I gave to the question the model asked."
+        # Add the user's message to the conversation
+        messages.append({"role": "user", "content": prompt+ "User: "+user_input})
+
+        # Get the model's reply using the chat_with_model function
+        model_reply = self.chat_with_model(messages)
+        messages.clear()
+
+        messages.append({"role": "model", "content": model_reply})
+        # Return the model's reply as a response
+        return Response({"message": model_reply})
+
+    def chat_with_model(self, messages):
+        # Use the conversation as multiple messages
+        response = g4f.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=messages,
+            temperature=0.7,
+            max_tokens=5000,
+        )
+
+        return response
+
+class SmartCompiler(APIView):
+    def get(self, request):
+        # You can return initial data or instructions for the chat here
         return Response({"message": "Welcome to the chat!"})
 
     def post(self, request):
@@ -90,11 +128,13 @@ class ChatView(APIView):
         if user_input.lower() == 'exit':
             return Response({"message": "Goodbye!"})
 
+
+        prompt = "Is the code related to the question? Reply ONLY with either 'Yes' or 'No' and Disregard any syntax errors or issues and focus solely on the conceptual connection between the code and the question."
         # Add the user's message to the conversation
-        messages = [{"role": "user", "content": user_input + " in c++ "+ "(tell in simplest way for a beginner with examples)"}]
+        input_message = [{"role": "user", "content": prompt+ user_input}]
 
         # Get the model's reply using the chat_with_model function
-        model_reply = self.chat_with_model(messages)
+        model_reply = self.chat_with_model(input_message)
 
         # Return the model's reply as a response
         return Response({"message": model_reply})
@@ -108,5 +148,5 @@ class ChatView(APIView):
             max_tokens=5000,
         )
 
-
         return response
+
