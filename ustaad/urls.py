@@ -24,12 +24,16 @@ Including another URLconf
 
 
 from django.urls import path
-from QAs.views import ExView, CompileCPlusPlus, ChatView, SmartCompiler
+from QAs.views import ExView, CompileCPlusPlus, ChatView, SmartCompiler, Login, Signup
 
 urlpatterns = [
     path('', ExView.as_view(), name="anything"),
     path('compiler', CompileCPlusPlus.as_view(), name='compiler_app'),
     path('chatbot', ChatView.as_view(), name='chatbot'),
     path('smartcompiler', SmartCompiler.as_view(), name='smartcompiler'),
+    path('login/', Login.as_view(), name='login'),
+    path('signup/', Signup.as_view(), name='signup'),
+
+
 
 ]

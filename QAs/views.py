@@ -3,13 +3,59 @@ import requests
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import viewsets
-from .models import Exercise
+from .models import Exercise, User
 from .serializer import ExerciseSerializer
 from rest_framework.response import Response
 import g4f
-
+from rest_framework import status
+from django.contrib.auth import authenticate, login
+from django.http import JsonResponse
+from django.contrib import messages
+from django.contrib.auth.models import User
 messages = []
 # Create your views here.
+
+
+class Login(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+
+        # Authenticate user
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            # If authentication succeeds, log in the user
+            login(request, user)
+            return JsonResponse({"message": "Login successful"})
+        else:
+            # If authentication fails, return error response
+            return JsonResponse({"error": "Invalid username or password"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class Signup(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        email = request.data.get('email')
+        first_name = request.data.get('first_name')
+        last_name = request.data.get('last_name')
+
+        # Check if all required fields are provided
+        if not (username and password and email and first_name and last_name):
+            return Response({"error": "All fields are required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Check if user with the same username or email already exists
+        if User.objects.filter(username=username).exists() or User.objects.filter(email=email).exists():
+            return Response({"error": "Username or email already exists"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Create the user
+        user = User.objects.create_user(username=username, password=password, email=email, first_name=first_name, last_name=last_name)
+        if user:
+            return Response({"message": "Signup successful"}, status=status.HTTP_201_CREATED)
+        else:
+            return Response({"error": "Failed to create user"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 
 class ExView(APIView):
@@ -76,7 +122,7 @@ class CompileCPlusPlus(APIView):
             # Request failed, return an error response
             return Response(
                 {"error": "Compilation failed. Please try again."},
-                status=status.HTTP_INTERNAL_SERVER_ERROR
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
         
 class ChatView(APIView):
