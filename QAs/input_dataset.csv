@@ -1,0 +1,655 @@
+Question,Difficulty,Topic
+"Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range `[-231, 231 - 1]`, then return `0`.  Assume the environment does not allow you to store 64-bit integers (signed or unsigned).   Example 1: Input: x = 123 Output: 321  Example 2: Input: x = -123 Output: -321  Example 3: Input: x = 120 Output: 21  Example 4: Input: x = 0 Output: 0  Constraints: `-231 <= x <= 231 - 1`",Easy,Arithmetic
+"Given an integer `x`, return `true` if `x` is palindrome integer.  An integer is a palindrome when it reads the same backward as forward. For example, `121` is palindrome while `123` is not.   Example 1: Input: x = 121 Output: true  Example 2: Input: x = -121 Output: false Explanation: From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.   Example 3: Input: x = 10 Output: false Explanation: Reads 01 from right to left. Therefore it is not a palindrome.   ",Easy,Arithmetic
+"Given an integer array `nums`, return the maximum difference between two successive elements in its sorted form. If the array contains less than two elements, return `0`.   Example 1: Input: nums = [3,6,9,1] Output: 3 Explanation: The sorted form of the array is [1,3,6,9], either (3,6) or (6,9) has the maximum difference 3.   Example 2: Input: nums = [10] Output: 0 Explanation: The array contains less than 2 elements, therefore return 0.   Constraints: `1 <= nums.length <= 104` `0 <= nums[i] <= 109` Follow ",Hard,Loops
+"Given an integer `columnNumber`, return its corresponding column title as it appears in an Excel sheet.  For example: A -> 1 B -> 2 C -> 3 ...  Z -> 26 AA -> 27 AB -> 28  ...   Example 1: Input: columnNumber = 1 Output: ""A""  Example 2: Input: columnNumber = 28 Output: ""AB""  Example 3: Input: columnNumber = 701 Output: ""ZY""  Example 4: Input: columnNumber = 2147483647 Output: ""FXSHRXW""  Constraints: `1 <= columnNumber <= 231 - 1`",Easy,Arithmetic
+"Given a string `columnTitle` that represents the column title as appear in an Excel sheet, return its corresponding column number.  For example: A -> 1 B -> 2 C -> 3 ...  Z -> 26 AA -> 27 AB -> 28  ...   Example 1: Input: columnTitle = ""A"" Output: 1  Example 2: Input: columnTitle = ""AB"" Output: 28  Example 3: Input: columnTitle = ""ZY"" Output: 701  Example 4: Input: columnTitle = ""FXSHRXW"" Output: 2147483647  Constraints: `1 <= columnTitle.length <= 7` `columnTitle` consists only of uppercase English letters",Easy,Arithmetic
+"Given an integer `n`, return the number of trailing zeroes in `n!`.  Follow up: Could you write a solution that works in logarithmic time complexity?  Example 1: Input: n = 3 Output: 0 Explanation: 3! = 6, no trailing zero.   Example 2: Input: n = 5 Output: 1 Explanation: 5! = 120, one trailing zero.   Example 3: Input: n = 0 Output: 0  Constraints: `0 <= n <= 104`",Easy,Arithmetic
+"Given a list of non-negative integers `nums`, arrange them such that they form the largest number.  Note: The result may be very large, so you need to return a string instead of an integer.   Example 1: Input: nums = [10,2] Output: ""210""  Example 2: Input: nums = [3,30,34,5,9] Output: ""9534330""  Example 3: Input: nums = [1] Output: ""1""  Example 4: Input: nums = [10] Output: ""10""  Constraints: `1 <= nums.length <= 100` `0 <= nums[i] <= 109`",Medium,Loops
+"Given the coordinates of two rectilinear rectangles in a 2D plane, return the total area covered by the two rectangles.  The first rectangle is defined by its bottom-left corner `(A, B)` and its top-right corner `(C, D)`.  The second rectangle is defined by its bottom-left corner `(E, F)` and its top-right corner `(G, H)`.   Example 1: Input: A = -3, B = 0, C = 3, D = 4, E = 0, F = -1, G = 9, H = 2 Output: 45  Example 2: Input: A = -2, B = -2, C = 2, D = 2, E = -2, F = -2, G = 2, H = 2 Output: 16  Constrain",Medium,Arithmetic
+"Given an integer `n`, count the total number of digit `1` appearing in all non-negative integers less than or equal to `n`.   Example 1: Input: n = 13 Output: 6  Example 2: Input: n = 0 Output: 0  Constraints: `0 <= n <= 2 * 109`",Hard,Arithmetic
+"Given an array of meeting time `intervals` where `intervals[i] = [starti, endi]`, determine if a person could attend all meetings.   Example 1: Input: intervals = [[0,30],[5,10],[15,20]] Output: false  Example 2: Input: intervals = [[7,10],[2,4]] Output: true  Constraints: `0 <= intervals.length <= 104` `intervals[i].length == 2` `0 <= starti < endi <= 106`",Easy,Loops
+"Given an integer `num`, repeatedly add all its digits until the result has only one digit, and return it.   Example 1: Input: num = 38 Output: 2 Explanation: The process is 38 --> 3 + 8 --> 11 11 --> 1 + 1 --> 2  Since 2 has only one digit, return it.   Example 2: Input: num = 0 Output: 0  Constraints: `0 <= num <= 231 - 1` Follow up: Could you do it without any loop/recursion in `O(1)` runtime?",Easy,Arithmetic
+"Given an integer `n`, return `true` if `n` is an ugly number.  Ugly number is a positive number whose prime factors only include `2`, `3`, and/or `5`.   Example 1: Input: n = 6 Output: true Explanation: 6 = 2 × 3  Example 2: Input: n = 8 Output: true Explanation: 8 = 2 × 2 × 2  Example 3: Input: n = 14 Output: false Explanation: 14 is not ugly since it includes another prime factor 7.   Example 4: Input: n = 1 Output: true Explanation: 1 is typically treated as an ugly number.   Constraints: `-231 <= n <= 2",Easy,Arithmetic
+"Given an integer array `nums`, reorder it such that `nums[0] < nums[1] > nums[2] < nums[3]...`.  You may assume the input array always has a valid answer.   Example 1: Input: nums = [1,5,1,1,6,4] Output: [1,6,1,5,1,4] Explanation: [1,4,1,5,1,6] is also accepted.   Example 2: Input: nums = [1,3,2,2,3,1] Output: [2,3,1,3,1,2]  Constraints: `1 <= nums.length <= 5 * 104` `0 <= nums[i] <= 5000` It is guaranteed that there will be an answer for the given input `nums`.  Follow Up: Can you do it in `O(n)` time and/",Medium,Loops
+"Given an integer `n`, return `true` if it is a power of three. Otherwise, return `false`.  An integer `n` is a power of three, if there exists an integer `x` such that `n == 3x`.   Example 1: Input: n = 27 Output: true  Example 2: Input: n = 0 Output: false  Example 3: Input: n = 9 Output: true  Example 4: Input: n = 45 Output: false  Constraints: `-231 <= n <= 231 - 1` Follow up: Could you solve it without loops/recursion?",Easy,Arithmetic
+"You are given an array of integers `distance`.  You start at point `(0,0)` on an X-Y plane and you move `distance[0]` meters to the north, then `distance[1]` meters to the west, `distance[2]` meters to the south, `distance[3]` meters to the east, and so on. In other words, after each move, your direction changes counter-clockwise.  Return `true` if your path crosses itself, and `false` if it does not.   Example 1: Input: distance = [2,1,1,2] Output: true  Example 2: Input: distance = [1,2,3,4] Output: false",Hard,Arithmetic
+"You are given two jugs with capacities `jug1Capacity` and `jug2Capacity` liters. There is an infinite amount of water supply available. Determine whether it is possible to measure exactly `targetCapacity` liters using these two jugs.  If `targetCapacity` liters of water are measurable, you must have `targetCapacity` liters of water contained within one or both buckets by the end.  Operations allowed: Fill any of the jugs with water.  Empty any of the jugs.  Pour water from one jug into another till the othe",Medium,Arithmetic
+"You are given an integer array `nums` of length `n`.  Assume `arrk` to be an array obtained by rotating `nums` by `k` positions clock-wise. We define the rotation function `F` on `nums` as follow: `F(k) = 0 * arrk[0] + 1 * arrk[1] + ... + (n - 1) * arrk[n - 1].` Return the maximum value of `F(0), F(1), ..., F(n-1)`.   Example 1: Input: nums = [4,3,2,6] Output: 26 Explanation: F(0) = (0 * 4) + (1 * 3) + (2 * 2) + (3 * 6) = 0 + 3 + 4 + 18 = 25 F(1) = (0 * 6) + (1 * 4) + (2 * 3) + (3 * 2) = 0 + 4 + 6 + 6 = 16 ",Medium,Arithmetic
+"Given an integer `n`, return the `nth` digit of the infinite integer sequence `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ...]`.   Example 1: Input: n = 3 Output: 3  Example 2: Input: n = 11 Output: 0 Explanation: The 11th digit of the sequence 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ... is a 0, which is part of the number 10.   Constraints: `1 <= n <= 231 - 1`",Medium,Arithmetic
+"Given a string `s` containing an out-of-order English representation of digits `0-9`, return the digits in ascending order.   Example 1: Input: s = ""owoztneoer"" Output: ""012""  Example 2: Input: s = ""fviefuro"" Output: ""45""  Constraints: `1 <= s.length <= 105` `s[i]` is one of the characters `[""e"",""g"",""f"",""i"",""h"",""o"",""n"",""s"",""r"",""u"",""t"",""w"",""v"",""x"",""z""]`.  `s` is guaranteed to be valid.",Medium,Arithmetic
+"Given an integer array `nums` of size `n`, return the minimum number of moves required to make all array elements equal.  In one move, you can increment `n - 1` elements of the array by `1`.   Example 1: Input: nums = [1,2,3] Output: 3 Explanation: Only three moves are needed (remember each move increments two elements): [1,2,3]  =>  [2,3,3]  =>  [3,4,3]  =>  [4,4,4]  Example 2: Input: nums = [1,1,1] Output: 0  Constraints: `n == nums.length` `1 <= nums.length <= 104` `-109 <= nums[i] <= 109`",Easy,Arithmetic
+"Given a non-empty integer array, find the minimum number of moves required to make all array elements equal, where a move is incrementing a selected element by 1 or decrementing a selected element by 1.  You may assume the array's length is at most 10,000.   Example: Input: [1,2,3] Output: 2 Explanation: Only two moves are needed (remember each move increments or decrements one element): [1,2,3]  =>  [2,2,3]  =>  [2,2,2]",Medium,Arithmetic
+"Given a list of points that form a polygon when joined sequentially, find if this polygon is convex (Convex polygon definition).  Note: There are at least 3 and at most 10,000 points.  Coordinates are in the range -10,000 to 10,000.  You may assume the polygon formed by given points is always a simple polygon (Simple polygon definition). In other words, we ensure that exactly two edges intersect at each vertex, and that edges otherwise don't intersect each other.   Example 1: [[0,0],[0,1],[1,1],[1,0]] Answe",Medium,Arithmetic
+"A perfect number is a positive integer that is equal to the sum of its positive divisors, excluding the number itself. A divisor of an integer `x` is an integer that can divide `x` evenly.  Given an integer `n`, return `true` if `n` is a perfect number, otherwise return `false`.   Example 1: Input: num = 28 Output: true Explanation: 28 = 1 + 2 + 4 + 7 + 14 1, 2, 4, 7, and 14 are all divisors of 28.   Example 2: Input: num = 6 Output: true  Example 3: Input: num = 496 Output: true  Example 4: Input: num = 81",Easy,Arithmetic
+"There's a tree, a squirrel, and several nuts. Positions are represented by the cells in a 2D grid. Your goal is to find the minimal distance for the squirrel to collect all the nuts and put them under the tree one by one. The squirrel can only take at most one nut at one time and can move in four directions - up, down, left and right, to the adjacent cell. The distance is represented by the number of moves.   Example 1: Input:  Height : 5 Width : 7 Tree position : [2,2] Squirrel : [4,4] Nuts : [[3,0], [2,5]",Medium,Arithmetic
+"Given a string representing an expression of fraction addition and subtraction, you need to return the calculation result in string format. The final result should be irreducible fraction. If your final result is an integer, say `2`, you need to change it to the format of fraction that has denominator `1`. So in this case, `2` should be converted to `2/1`.   Example 1: Input:""-1/2+1/2"" Output: ""0/1""  Example 2: Input:""-1/2+1/2+1/3"" Output: ""1/3""  Example 3: Input:""1/3-1/2"" Output: ""-1/6""  Example 4: Input:""",Medium,Arithmetic
+"Given the coordinates of four points in 2D space `p1`, `p2`, `p3` and `p4`, return `true` if the four points construct a square.  The coordinate of a point `pi` is represented as `[xi, yi]`. The input is not given in any order.  A valid square has four equal sides with positive length and four equal angles (90-degree angles).   Example 1: Input: p1 = [0,0], p2 = [1,1], p3 = [1,0], p4 = [0,1] Output: true  Example 2: Input: p1 = [0,0], p2 = [1,1], p3 = [1,0], p4 = [0,12] Output: false  Example 3: Input: p1 =",Medium,Arithmetic
+"You are given an `m x n` matrix `M` initialized with all `0`'s and an array of operations `ops`, where `ops[i] = [ai, bi]` means `M[x][y]` should be incremented by one for all `0 <= x < ai` and `0 <= y < bi`.  Count and return the number of maximum integers in the matrix after performing all the operations.   Example 1: Input: m = 3, n = 3, ops = [[2,2],[3,3]] Output: 4 Explanation: The maximum integer in M is 2, and there are four of it in M. So return 4.   Example 2: Input: m = 3, n = 3, ops = [[2,2],[3,3",Easy,Arithmetic
+"Given a non-negative integer `c`, decide whether there're two integers `a` and `b` such that `a2 + b2 = c`.   Example 1: Input: c = 5 Output: true Explanation: 1 * 1 + 2 * 2 = 5  Example 2: Input: c = 3 Output: false  Example 3: Input: c = 4 Output: true  Example 4: Input: c = 2 Output: true  Example 5: Input: c = 1 Output: true  Constraints: `0 <= c <= 231 - 1`",Medium,Arithmetic
+"In combinatorial mathematics, a derangement is a permutation of the elements of a set, such that no element appears in its original position.  There's originally an array consisting of `n` integers from 1 to `n` in ascending order, you need to find the number of derangement it can generate.  Also, since the answer may be very large, you should return the output mod 109 + 7.   Example 1: Input: 3 Output: 2 Explanation: The original array is [1,2,3]. The two derangements are [2,3,1] and [3,1,2].  Note: `n` is",Medium,Arithmetic
+"Solve a given equation and return the value of `x` in the form of string ""x=#value"". The equation contains only '+', '-' operation, the variable `x` and its coefficient.  If there is no solution for the equation, return ""No solution"".  If there are infinite solutions for the equation, return ""Infinite solutions"".  If there is exactly one solution for the equation, we ensure that the value of `x` is an integer.   Example 1: Input: ""x+5-3+x=6+x-2"" Output: ""x=2""  Example 2: Input: ""x=x"" Output: ""Infinite solut",Medium,Arithmetic
+"Start from integer 1, remove any integer that contains 9 such as 9, 19, 29...  So now, you will have a new integer sequence: 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, ...  Given a positive integer `n`, you need to return the n-th integer after removing. Note that 1 will be the first integer.   Example 1: Input: n = 9 Output: 10  Constraints: `1 <= n <= 8 x 10^8`",Hard,Arithmetic
+"There is a room with `n` lights which are turned on initially and 4 buttons on the wall. After performing exactly `m` unknown operations towards buttons, you need to return how many different kinds of status of the `n` lights could be.  Suppose `n` lights are labeled as number [1, 2, 3 ..., n], function of these 4 buttons are given below: Flip all the lights.  Flip lights with even numbers.  Flip lights with odd numbers.  Flip lights with (3k + 1) numbers, k = 0, 1, 2, ...   Example 1: Input: n = 1, m = 1. ",Medium,Arithmetic
+"A self-dividing number is a number that is divisible by every digit it contains.  For example, 128 is a self-dividing number because `128 % 1 == 0`, `128 % 2 == 0`, and `128 % 8 == 0`.  Also, a self-dividing number is not allowed to contain the digit zero.  Given a lower and upper number bound, output a list of every possible self dividing number, including the bounds if possible.   Example 1: Input:  left = 1, right = 22 Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 15, 22] Note: The boundaries of each input",Easy,Arithmetic
+"You are standing at position `0` on an infinite number line.  There is a goal at position `target`.  On each move, you can either go left or right.  During the n-th move (starting from 1), you take n steps.  Return the minimum number of steps required to reach the destination.   Example 1: Input: target = 3 Output: 2 Explanation: On the first move we step from 0 to 1.  On the second step we step from 1 to 3.   Example 2: Input: target = 2 Output: 3 Explanation: On the first move we step from 0 to 1.  On the",Medium,Arithmetic
+"A move consists of taking a point `(x, y)` and transforming it to either `(x, x+y)` or `(x+y, y)`.  Given a starting point `(sx, sy)` and a target point `(tx, ty)`, return `True` if and only if a sequence of moves exists to transform the point `(sx, sy)` to `(tx, ty)`. Otherwise, return `False`.   Examples: Input: sx = 1, sy = 1, tx = 3, ty = 5 Output: True Explanation: One series of moves that transforms the starting point to the target is: (1, 1) -> (1, 2) (1, 2) -> (3, 2) (3, 2) -> (3, 5) Input: sx = 1, ",Hard,Arithmetic
+"You are playing a simplified PAC-MAN game on an infinite 2-D grid. You start at the point `[0, 0]`, and you are given a destination point `target = [xtarget, ytarget]`, which you are trying to get to. There are several ghosts on the map with their starting positions given as an array `ghosts`, where `ghosts[i] = [xi, yi]` represents the starting position of the `ith` ghost. All inputs are integral coordinates.  Each turn, you and all the ghosts may independently choose to either move 1 unit in any of the fo",Medium,Arithmetic
+"You are given an integer array `nums`.  You should move each element of `nums` into one of the two arrays `A` and `B` such that `A` and `B` are non-empty, and `average(A) == average(B)`.  Return `true` if it is possible to achieve that and `false` otherwise.  Note that for an array `arr`, `average(arr)` is the sum of all the elements of `arr` over the length of `arr`.   Example 1: Input: nums = [1,2,3,4,5,6,7,8] Output: true Explanation: We can split the array into [1,4,5,8] and [2,3,6,7], and both of them ",Hard,Arithmetic
+"We are given non-negative integers nums[i] which are written on a chalkboard.  Alice and Bob take turns erasing exactly one number from the chalkboard, with Alice starting first.  If erasing a number causes the bitwise XOR of all the elements of the chalkboard to become 0, then that player loses.  (Also, we'll say the bitwise XOR of one element is that element itself, and the bitwise XOR of no elements is 0.) Also, if any player starts their turn with the bitwise XOR of all the elements of the chalkboard eq",Hard,Arithmetic
+"You have a list of points in the plane. Return the area of the largest triangle that can be formed by any 3 of the points.   Example: Input: points = [[0,0],[0,1],[1,0],[0,2],[2,0]] Output: 2 Explanation:  The five points are show in the figure below. The red triangle is the largest.  Notes:  `3 <= points.length <= 50`.  No points will be duplicated.   `-50 <= points[i][j] <= 50`.  Answers within `10^-6` of the true value will be accepted as correct.",Easy,Arithmetic
+"Given a positive integer `N`, how many ways can we write it as a sum of consecutive positive integers?  Example 1: Input: 5 Output: 2 Explanation: 5 = 5 = 2 + 3  Example 2: Input: 9 Output: 3 Explanation: 9 = 9 = 4 + 5 = 2 + 3 + 4  Example 3: Input: 15 Output: 4 Explanation: 15 = 15 = 8 + 7 = 4 + 5 + 6 = 1 + 2 + 3 + 4 + 5 Note: `1 <= N <= 10 ^ 9`.",Hard,Arithmetic
+"An axis-aligned rectangle is represented as a list `[x1, y1, x2, y2]`, where `(x1, y1)` is the coordinate of its bottom-left corner, and `(x2, y2)` is the coordinate of its top-right corner. Its top and bottom edges are parallel to the X-axis, and its left and right edges are parallel to the Y-axis.  Two rectangles overlap if the area of their intersection is positive. To be clear, two rectangles that only touch at the corner or edges do not overlap.  Given two axis-aligned rectangles `rec1` and `rec2`, ret",Easy,Arithmetic
+"`N` cars are going to the same destination along a one lane road.  The destination is `target` miles away.  Each car `i` has a constant speed `speed[i]` (in miles per hour), and initial position `position[i]` miles towards the target along the road.  A car can never pass another car ahead of it, but it can catch up to it, and drive bumper to bumper at the same speed.  The distance between these two cars is ignored - they are assumed to have the same position.  A car fleet is some non-empty set of cars drivi",Medium,Loops
+"There is a special square room with mirrors on each of the four walls.  Except for the southwest corner, there are receptors on each of the remaining corners, numbered `0`, `1`, and `2`.  The square room has walls of length `p`, and a laser ray from the southwest corner first meets the east wall at a distance `q` from the `0`th receptor.  Return the number of the receptor that the ray meets first.  (It is guaranteed that the ray will meet a receptor eventually.)  Example 1: Input: p = 2, q = 1 Output: 2 Exp",Medium,Arithmetic
+"Find the smallest prime palindrome greater than or equal to `N`.  Recall that a number is prime if it's only divisors are 1 and itself, and it is greater than 1.  For example, 2,3,5,7,11 and 13 are primes.  Recall that a number is a palindrome if it reads the same from left to right as it does from right to left.  For example, 12321 is a palindrome.   Example 1: Input: 6 Output: 7  Example 2: Input: 8 Output: 11  Example 3: Input: 13 Output: 101 Note: `1 <= N <= 10^8` The answer is guaranteed to exist and b",Medium,Arithmetic
+"Given a positive integer `n`, find and return the longest distance between any two adjacent `1`'s in the binary representation of `n`. If there are no two adjacent `1`'s, return `0`.  Two `1`'s are adjacent if there are only `0`'s separating them (possibly no `0`'s). The distance between two `1`'s is the absolute difference between their bit positions. For example, the two `1`'s in `""1001""` have a distance of 3.   Example 1: Input: n = 22 Output: 2 Explanation: 22 in binary is ""10110"".  The first adjacent p",Easy,Arithmetic
+"On a 2 dimensional grid with `R` rows and `C` columns, we start at `(r0, c0)` facing east.  Here, the north-west corner of the grid is at the first row and column, and the south-east corner of the grid is at the last row and column.  Now, we walk in a clockwise spiral shape to visit every position in this grid.  Whenever we would move outside the boundary of the grid, we continue our walk outside the grid (but may return to the grid boundary later.)  Eventually, we reach all `R * C` spaces of the grid.  Ret",Medium,Arithmetic
+"Let's say a positive integer is a super-palindrome if it is a palindrome, and it is also the square of a palindrome.  Given two positive integers `left` and `right` represented as strings, return the number of super-palindromes integers in the inclusive range `[left, right]`.   Example 1: Input: left = ""4"", right = ""1000"" Output: 4 Explanation: 4, 9, 121, and 484 are superpalindromes.  Note that 676 is not a superpalindrome: 26 * 26 = 676, but 26 is not a palindrome.   Example 2: Input: left = ""1"", right = ",Hard,Arithmetic
+"Given an array `A` of integers, for each integer `A[i]` we may choose any `x` with `-K <= x <= K`, and add `x` to `A[i]`.  After this process, we have some array `B`.  Return the smallest possible difference between the maximum value of `B` and the minimum value of `B`.   Example 1: Input: A = [1], K = 0 Output: 0 Explanation: B = [1]  Example 2: Input: A = [0,10], K = 2 Output: 6 Explanation: B = [2,8]  Example 3: Input: A = [1,3,6], K = 3 Output: 0 Explanation: B = [3,3,3] or B = [4,4,4] Note: `1 <= A.len",Easy,Arithmetic
+"A permutation `perm` of `n + 1` integers of all the integers in the range `[0, n]` can be represented as a string `s` of length `n` where: `s[i] == 'I'` if `perm[i] < perm[i + 1]`, and `s[i] == 'D'` if `perm[i] > perm[i + 1]`.  Given a string `s`, reconstruct the permutation perm and return it. If there are multiple valid permutations perm, return any of them.   Example 1: Input: s = ""IDID"" Output: [0,4,1,3,2]  Example 2: Input: s = ""III"" Output: [0,1,2,3]  Example 3: Input: s = ""DDI"" Output: [3,2,0,1]  Con",Easy,Arithmetic
+"Given an array `arr` of 4 digits, find the latest 24-hour time that can be made using each digit exactly once.  24-hour times are formatted as `""HH:MM""`, where `HH` is between `00` and `23`, and `MM` is between `00` and `59`. The earliest 24-hour time is `00:00`, and the latest is `23:59`.  Return the latest 24-hour time in `""HH:MM""` format.  If no valid time can be made, return an empty string.   Example 1: Input: A = [1,2,3,4] Output: ""23:41"" Explanation: The valid 24-hour times are ""12:34"", ""12:43"", ""13:",Medium,Arithmetic
+"Given two strings `s` and `t`, each of which represents a non-negative rational number, return `true` if and only if they represent the same number. The strings may use parentheses to denote the repeating part of the rational number.  A rational number can be represented using up to three parts: `<IntegerPart>`, `<NonRepeatingPart>`, and a `<RepeatingPart>`. The number will be represented in one of the following three ways: `<IntegerPart>`   For example, `12`, `0`, and `123`.  `<IntegerPart><.><NonRepeating",Hard,Arithmetic
+"Normally, the factorial of a positive integer `n` is the product of all positive integers less than or equal to `n`.  For example, `factorial(10) = 10 * 9 * 8 * 7 * 6 * 5 * 4 * 3 * 2 * 1`.  We instead make a clumsy factorial: using the integers in decreasing order, we swap out the multiply operations for a fixed rotation of operations: multiply (*), divide (/), add (+) and subtract (-) in this order.  For example, `clumsy(10) = 10 * 9 / 8 + 7 - 6 * 5 / 4 + 3 - 2 * 1`.  However, these operations are still ap",Medium,Arithmetic
+"Every non-negative integer `N` has a binary representation.  For example, `5` can be represented as `""101""` in binary, `11` as `""1011""` in binary, and so on.  Note that except for `N = 0`, there are no leading zeroes in any binary representation.  The complement of a binary representation is the number in binary you get when changing every `1` to a `0` and `0` to a `1`.  For example, the complement of `""101""` in binary is `""010""` in binary.  For a given number `N` in base-10, return the complement of it's b",Easy,Arithmetic
+"Given a positive integer `K`, you need to find the length of the smallest positive integer `N` such that `N` is divisible by `K`, and `N` only contains the digit `1`.  Return the length of `N`. If there is no such `N`, return -1.  Note: `N` may not fit in a 64-bit signed integer.   Example 1: Input: K = 1 Output: 1 Explanation: The smallest answer is N = 1, which has length 1.   Example 2: Input: K = 2 Output: -1 Explanation: There is no such positive integer N divisible by 2.   Example 3: Input: K = 3 Outp",Medium,Arithmetic
+"Given a number `N`, return a string consisting of `""0""`s and `""1""`s that represents its value in base `-2` (negative two).  The returned string must have no leading zeroes, unless the string is `""0""`.   Example 1: Input: 2 Output: ""110"" Explantion: (-2) ^ 2 + (-2) ^ 1 = 2  Example 2: Input: 3 Output: ""111"" Explantion: (-2) ^ 2 + (-2) ^ 1 + (-2) ^ 0 = 3  Example 3: Input: 4 Output: ""100"" Explantion: (-2) ^ 2 = 4 Note: `0 <= N <= 10^9`",Medium,Arithmetic
+"We are given a matrix with `R` rows and `C` columns has cells with integer coordinates `(r, c)`, where `0 <= r < R` and `0 <= c < C`.  Additionally, we are given a cell in that matrix with coordinates `(r0, c0)`.  Return the coordinates of all cells in the matrix, sorted by their distance from `(r0, c0)` from smallest distance to largest distance.  Here, the distance between two cells `(r1, c1)` and `(r2, c2)` is the Manhattan distance, `|r1 - r2| + |c1 - c2|`.  (You may return the answer in any order that ",Easy,Loops
+"Given an array `points` where `points[i] = [xi, yi]` represents a point on the X-Y plane, return `true` if these points are a boomerang.  A boomerang is a set of three points that are all distinct and not in a straight line.   Example 1: Input: points = [[1,1],[2,3],[3,2]] Output: true  Example 2: Input: points = [[1,1],[2,2],[3,3]] Output: false  Constraints: `points.length == 3` `points[i].length == 2` `0 <= xi, yi <= 100`",Easy,Arithmetic
+"On an infinite plane, a robot initially stands at `(0, 0)` and faces north. The robot can receive one of three instructions: `""G""`: go straight 1 unit; `""L""`: turn 90 degrees to the left; `""R""`: turn 90 degrees to the right.  The robot performs the `instructions` given in order, and repeats them forever.  Return `true` if and only if there exists a circle in the plane such that the robot never leaves the circle.   Example 1: Input: instructions = ""GGLLGG"" Output: true Explanation: The robot moves from (0,0)",Medium,Arithmetic
+"Given a number `N`, return `true` if and only if it is a confusing number, which satisfies the following condition: We can rotate digits by 180 degrees to form new digits. When 0, 1, 6, 8, 9 are rotated 180 degrees, they become 0, 1, 9, 8, 6 respectively. When 2, 3, 4, 5 and 7 are rotated 180 degrees, they become invalid. A confusing number is a number that when rotated 180 degrees becomes a different number with each digit valid.   Example 1: Input: 6 Output: true Explanation:  We get `9` after rotating `6",Easy,Arithmetic
+"Given two numbers `arr1` and `arr2` in base -2, return the result of adding them together.  Each number is given in array format:  as an array of 0s and 1s, from most significant bit to least significant bit.  For example, `arr = [1,1,0,1]` represents the number `(-2)^3 + (-2)^2 + (-2)^0 = -3`.  A number `arr` in array, format is also guaranteed to have no leading zeros: either `arr == [0]` or `arr[0] == 1`.  Return the result of adding `arr1` and `arr2` in the same format: as an array of 0s and 1s with no ",Medium,Arithmetic
+"Given a non-decreasing array of positive integers `nums` and an integer `K`, find out if this array can be divided into one or more disjoint increasing subsequences of length at least `K`.   Example 1: Input: nums = [1,2,2,3,3,4,4], K = 3 Output: true Explanation:  The array can be divided into the two subsequences [1,2,3,4] and [2,3,4] with lengths at least 3 each.   Example 2: Input: nums = [5,6,6,7,8], K = 3 Output: false Explanation:  There is no way to divide the array using the conditions required.  N",Hard,Arithmetic
+"Given an integer `n`, return `true` if and only if it is an Armstrong number.  The `k`-digit number `n` is an Armstrong number if and only if the `kth` power of each digit sums to `n`.   Example 1: Input: n = 153 Output: true Explanation: 153 is a 3-digit number, and 153 = 13 + 53 + 33.   Example 2: Input: n = 123 Output: false Explanation: 123 is a 3-digit number, and 123 != 13 + 23 + 33 = 36.   Constraints: `1 <= n <= 108`",Easy,Arithmetic
+"Given a string `date` representing a Gregorian calendar date formatted as `YYYY-MM-DD`, return the day number of the year.   Example 1: Input: date = ""2019-01-09"" Output: 9 Explanation: Given date is the 9th day of the year in 2019.   Example 2: Input: date = ""2019-02-10"" Output: 41  Example 3: Input: date = ""2003-03-01"" Output: 60  Example 4: Input: date = ""2004-03-01"" Output: 61  Constraints: `date.length == 10` `date[4] == date[7] == '-'`, and all other `date[i]`'s are digits `date` represents a calendar",Easy,Arithmetic
+"Return the number of permutations of 1 to `n` so that prime numbers are at prime indices (1-indexed.) (Recall that an integer is prime if and only if it is greater than 1, and cannot be written as a product of two positive integers both smaller than it.) Since the answer may be large, return the answer modulo `10^9 + 7`.   Example 1: Input: n = 5 Output: 12 Explanation: For example [1,2,5,4,3] is a valid permutation, but [5,2,3,4,1] is not because the prime number 5 is at index 1.   Example 2: Input: n = 10",Easy,Arithmetic
+"In some array `arr`, the values were in arithmetic progression: the values `arr[i+1] - arr[i]` are all equal for every `0 <= i < arr.length - 1`.  Then, a value from `arr` was removed that was not the first or last value in the array.  Return the removed value.   Example 1: Input: arr = [5,7,11,13] Output: 9 Explanation: The previous array was [5,7,9,11,13].   Example 2: Input: arr = [15,13,12] Output: 14 Explanation: The previous array was [15,14,13,12].   Constraints: `3 <= arr.length <= 1000` `0 <= arr[i",Easy,Arithmetic
+"Given 2 integers `n` and `start`. Your task is return any permutation `p` of `(0,1,2.....,2^n -1) `such that : `p[0] = start` `p[i]` and `p[i+1]` differ by only one bit in their binary representation.  `p[0]` and `p[2^n -1]` must also differ by only one bit in their binary representation.   Example 1: Input: n = 2, start = 3 Output: [3,2,0,1] Explanation: The binary representation of the permutation is (11,10,00,01).  All the adjacent element differ by one bit. Another valid permutation is [3,1,0,2]  Exampl",Medium,Arithmetic
+"Given an array `nums` of positive integers. Your task is to select some subset of `nums`, multiply each element by an integer and add all these numbers. The array is said to be good if you can obtain a sum of `1` from the array by any possible subset and multiplicand.  Return `True` if the array is good otherwise return `False`.   Example 1: Input: nums = [12,5,7,23] Output: true Explanation: Pick numbers 5 and 7.  5*3 + 7*(-2) = 1  Example 2: Input: nums = [29,6,10] Output: true Explanation: Pick numbers 2",Hard,Arithmetic
+"Given an integer number `n`, return the difference between the product of its digits and the sum of its digits.   Example 1: Input: n = 234 Output: 15  Explanation:  Product of digits = 2 * 3 * 4 = 24  Sum of digits = 2 + 3 + 4 = 9  Result = 24 - 9 = 15  Example 2: Input: n = 4421 Output: 21 Explanation:  Product of digits = 4 * 4 * 2 * 1 = 32  Sum of digits = 4 + 4 + 2 + 1 = 11  Result = 32 - 11 = 21  Constraints: `1 <= n <= 10^5`",Easy,Arithmetic
+"Given an integer `n`. No-Zero integer is a positive integer which doesn't contain any 0 in its decimal representation.  Return a list of two integers `[A, B]` where: `A` and `B` are No-Zero integers.  `A + B = n` It's guarateed that there is at least one valid solution. If there are many valid solutions you can return any of them.   Example 1: Input: n = 2 Output: [1,1] Explanation: A = 1, B = 1. A + B = n and both A and B don't contain any 0 in their decimal representation.   Example 2: Input: n = 11 Outpu",Easy,Arithmetic
+"Given a positive integer `num` consisting only of digits 6 and 9.  Return the maximum number you can get by changing at most one digit (6 becomes 9, and 9 becomes 6).   Example 1: Input: num = 9669 Output: 9969 Explanation:  Changing the first digit results in 6669.  Changing the second digit results in 9969.  Changing the third digit results in 9699.  Changing the fourth digit results in 9666.  The maximum number is 9969.   Example 2: Input: num = 9996 Output: 9999 Explanation: Changing the last digit 6 to",Easy,Arithmetic
+"Given two numbers, `hour` and `minutes`. Return the smaller angle (in degrees) formed between the `hour` and the `minute` hand.   Example 1: Input: hour = 12, minutes = 30 Output: 165  Example 2: Input: hour = 3, minutes = 30 Output: 75  Example 3: Input: hour = 3, minutes = 15 Output: 7.5  Example 4: Input: hour = 4, minutes = 50 Output: 155  Example 5: Input: hour = 12, minutes = 0 Output: 0  Constraints: `1 <= hour <= 12` `0 <= minutes <= 59` Answers within `10^-5` of the actual value will be accepted as",Medium,Arithmetic
+"Given an integer `num`, find the closest two integers in absolute difference whose product equals `num + 1` or `num + 2`.  Return the two integers in any order.   Example 1: Input: num = 8 Output: [3,3] Explanation: For num + 1 = 9, the closest divisors are 3 & 3, for num + 2 = 10, the closest divisors are 2 & 5, hence 3 & 3 is chosen.   Example 2: Input: num = 123 Output: [5,25]  Example 3: Input: num = 999 Output: [40,25]  Constraints: `1 <= num <= 10^9`",Medium,Arithmetic
+"Given an integer array `nums`, return the sum of divisors of the integers in that array that have exactly four divisors.  If there is no such integer in the array, return `0`.   Example 1: Input: nums = [21,4,7] Output: 32 Explanation: 21 has 4 divisors: 1, 3, 7, 21 4 has 3 divisors: 1, 2, 4 7 has 2 divisors: 1, 7 The answer is the sum of divisors of 21 only.   Constraints: `1 <= nums.length <= 10^4` `1 <= nums[i] <= 10^5`",Medium,Arithmetic
+"Given an integer `n`, return a list of all simplified fractions between 0 and 1 (exclusive) such that the denominator is less-than-or-equal-to `n`. The fractions can be in any order.   Example 1: Input: n = 2 Output: [""1/2""] Explanation: ""1/2"" is the only unique fraction with a denominator less-than-or-equal-to 2.   Example 2: Input: n = 3 Output: [""1/2"",""1/3"",""2/3""]  Example 3: Input: n = 4 Output: [""1/2"",""1/3"",""1/4"",""2/3"",""3/4""] Explanation: ""2/4"" is not a simplified fraction because it can be simplified ",Medium,Arithmetic
+"Given two positive integers `n` and `k`.  A factor of an integer `n` is defined as an integer `i` where `n % i == 0`.  Consider a list of all factors of `n` sorted in ascending order, return the `kth` factor in this list or return -1 if `n` has less than `k` factors.   Example 1: Input: n = 12, k = 3 Output: 3 Explanation: Factors list is [1, 2, 3, 4, 6, 12], the 3rd factor is 3.   Example 2: Input: n = 7, k = 2 Output: 7 Explanation: Factors list is [1, 7], the 2nd factor is 7.   Example 3: Input: n = 4, k",Medium,Arithmetic
+"Given two non-negative integers `low` and `high`. Return the count of odd numbers between `low` and `high` (inclusive).   Example 1: Input: low = 3, high = 7 Output: 3 Explanation: The odd numbers between 3 and 7 are [3,5,7].   Example 2: Input: low = 8, high = 10 Output: 1 Explanation: The odd numbers between 8 and 10 are [9].   Constraints: `0 <= low <= high <= 10^9`",Easy,Arithmetic
+"Given a string `s` and an integer array `indices` of the same length.  The string `s` will be shuffled such that the character at the `ith` position moves to `indices[i]` in the shuffled string.  Return the shuffled string.   Example 1: Input: s = ""codeleet"", `indices` = [4,5,6,7,0,2,1,3] Output: ""leetcode"" Explanation: As shown, ""codeleet"" becomes ""leetcode"" after shuffling.   Example 2: Input: s = ""abc"", `indices` = [0,1,2] Output: ""abc"" Explanation: After shuffling, each character remains in its position",Easy,Loops
+"You have an array `arr` of length `n` where `arr[i] = (2 * i) + 1` for all valid values of `i` (i.e. `0 <= i < n`).  In one operation, you can select two indices `x` and `y` where `0 <= x, y < n` and subtract `1` from `arr[x]` and add `1` to `arr[y]` (i.e. perform `arr[x] -=1 `and `arr[y] += 1`). The goal is to make all the elements of the array equal. It is guaranteed that all the elements of the array can be made equal using some operations.  Given an integer `n`, the length of the array. Return the minim",Medium,Arithmetic
+"A sequence of numbers is called arithmetic if it consists of at least two elements, and the difference between every two consecutive elements is the same. More formally, a sequence `s` is arithmetic if and only if `s[i+1] - s[i] == s[1] - s[0] `for all valid `i`.  For example, these are arithmetic sequences: 1, 3, 5, 7, 9 7, 7, 7, 7 3, -1, -5, -9 The following sequence is not arithmetic: 1, 1, 2, 5, 7 You are given an array of `n` integers, `nums`, and two arrays of `m` integers each, `l` and `r`, represent",Medium,Loops
+"Given `n` `points` on a 2D plane where `points[i] = [xi, yi]`, Return the widest vertical area between two points such that no points are inside the area.  A vertical area is an area of fixed-width extending infinitely along the y-axis (i.e., infinite height). The widest vertical area is the one with the maximum width.  Note that points on the edge of a vertical area are not considered included in the area.   Example 1: ​ Input: points = [[8,7],[9,9],[7,4],[9,7]] Output: 1 Explanation: Both the red and the ",Medium,Loops
+"Given an integer `n`, return the decimal value of the binary string formed by concatenating the binary representations of `1` to `n` in order, modulo `109 + 7`.   Example 1: Input: n = 1 Output: 1 Explanation: ""1"" in binary corresponds to the decimal value 1.   Example 2: Input: n = 3 Output: 27 Explanation: In binary, 1, 2, and 3 corresponds to ""1"", ""10"", and ""11"".  After concatenating them, we have ""11011"", which corresponds to the decimal value 27.   Example 3: Input: n = 12 Output: 505379714 Explanation",Medium,Arithmetic
+"You are given a 2D integer array, `queries`. For each `queries[i]`, where `queries[i] = [ni, ki]`, find the number of different ways you can place positive integers into an array of size `ni` such that the product of the integers is `ki`. As the number of ways may be too large, the answer to the `ith` query is the number of ways modulo `109 + 7`.  Return an integer array `answer` where `answer.length == queries.length`, and `answer[i]` is the answer to the `ith` query.   Example 1: Input: queries = [[2,6],[",Hard,Arithmetic
+"You are given a (0-indexed) array of positive integers `candiesCount` where `candiesCount[i]` represents the number of candies of the `ith` type you have. You are also given a 2D array `queries` where `queries[i] = [favoriteTypei, favoriteDayi, dailyCapi]`.  You play a game with the following rules: You start eating candies on day `0`.  You cannot eat any candy of type `i` unless you have eaten all candies of type `i - 1`.  You must eat at least one candy per day until you have eaten all the candies.  Const",Medium,Arithmetic
+"There are `n` cars traveling at different speeds in the same direction along a one-lane road. You are given an array `cars` of length `n`, where `cars[i] = [positioni, speedi]` represents: `positioni` is the distance between the `ith` car and the beginning of the road in meters. It is guaranteed that `positioni < positioni+1`.  `speedi` is the initial speed of the `ith` car in meters per second.  For simplicity, cars can be considered as points moving along the number line. Two cars collide when they occupy",Hard,Arithmetic
+"You are given a positive integer `primeFactors`. You are asked to construct a positive integer `n` that satisfies the following conditions: The number of prime factors of `n` (not necessarily distinct) is at most `primeFactors`.  The number of nice divisors of `n` is maximized. Note that a divisor of `n` is nice if it is divisible by every prime factor of `n`. For example, if `n = 12`, then its prime factors are `[2,2,3]`, then `6` and `12` are nice divisors, while `3` and `4` are not.  Return the number of",Hard,Arithmetic
+"You are given an array `nums` that consists of positive integers.  The GCD of a sequence of numbers is defined as the greatest integer that divides all the numbers in the sequence evenly.  For example, the GCD of the sequence `[4,6,16]` is `2`.  A subsequence of an array is a sequence that can be formed by removing some elements (possibly none) of the array.  For example, `[2,5,10]` is a subsequence of `[1,2,1,2,4,1,5,10]`.  Return the number of different GCDs among all non-empty subsequences of `nums`.   E",Hard,Arithmetic
+"There is a function `signFunc(x)` that returns: `1` if `x` is positive.  `-1` if `x` is negative.  `0` if `x` is equal to `0`.  You are given an integer array `nums`. Let `product` be the product of all values in the array `nums`.  Return `signFunc(product)`.   Example 1: Input: nums = [-1,-2,-3,-4,3,2,1] Output: 1 Explanation: The product of all values in the array is 144, and signFunc(144) = 1  Example 2: Input: nums = [1,5,0,2,-3] Output: 0 Explanation: The product of all values in the array is 0, and si",Easy,Arithmetic
+Declare a variable named 'age' and assign it an integer value.,Easy,Variables
+Create a variable named 'temperature' and set it to 98.6 (floating-point value).,Easy,Variables
+Define a variable 'grade' and initialize it with the character 'A'.,Easy,Variables
+Declare a variable 'is_raining' and set it to True (boolean value).,Easy,Variables
+Create a variable 'name' and assign it a string value.,Easy,Variables
+Declare an integer variable 'num1' and initialize it to 10.,Easy,Variables
+Declare another integer variable 'num2' and set it to 20.,Easy,Variables
+Define a variable 'pi' and assign it the value 3.14 (float).,Easy,Variables
+Declare a variable 'initial' and assign it the first letter of your name (character).,Easy,Variables
+Create a variable 'is_sunny' and set it to False.,Easy,Variables
+Declare a variable 'city' and assign it a string representing your favorite city.,Easy,Variables
+Define a variable 'count' and set it to 0.,Easy,Variables
+Declare a variable 'price' and initialize it with a float value.,Easy,Variables
+Create a variable 'username' and assign it your username as a string.,Easy,Variables
+Declare a variable 'score' and set it to an integer value.,Easy,Variables
+Define a variable 'grade' and initialize it to 'B' (character).,Easy,Variables
+Declare a variable 'is_weekend' and set it to True.,Easy,Variables
+Create a variable 'country' and assign it your country's name.,Easy,Variables
+Declare a variable 'hours' and set it to an integer representing the number of hours in a day.,Easy,Variables
+Define a variable 'rate' and assign it a float value.,Easy,Variables
+Declare a variable 'is_cold' and set it to False.,Easy,Variables
+Create a variable 'population' and set it to an integer representing the population of your city.,Easy,Variables
+Define a variable 'symbol' and set it to a character of your choice.,Easy,Variables
+Declare a variable 'weight' and set it to a float value.,Easy,Variables
+Create a variable 'address' and assign it your address as a string.,Easy,Variables
+Declare a variable 'size' and set it to an integer.,Easy,Variables
+Define a variable 'is_even' and assign it a boolean value.,Easy,Variables
+Declare a variable 'height' and set it to a float representing your height.,Easy,Variables
+Create a variable 'quantity' and initialize it to an integer value.,Easy,Variables
+Declare a variable 'school' and set it to the name of your school.,Easy,Variables
+Swap two integer variables 'a' and 'b' without using a temporary variable in C++.,Medium,Variables
+Convert a given temperature in Celsius to Fahrenheit in C++.,Medium,Variables
+Calculate the area of a rectangle given its length and width in C++.,Medium,Variables
+Find the perimeter of a square given its side length in C++.,Medium,Variables
+Calculate the volume of a cube given its side length in C++.,Medium,Variables
+Determine the square root of a given number in C++.,Medium,Variables
+Check if a given character is a vowel or consonant in C++.,Medium,Variables
+"Calculate the simple interest given principal amount, rate, and time in C++.",Medium,Variables
+Convert a given character to its corresponding ASCII value in C++.,Medium,Variables
+Find the maximum of two floating-point numbers 'x' and 'y' in C++.,Medium,Variables
+Calculate the sum of the digits of a given positive integer 'n' in C++.,Medium,Variables
+Round a given floating-point number 'x' to the nearest integer in C++.,Medium,Variables
+Calculate the factorial of a positive integer 'n' in C++.,Medium,Variables
+Check if a given year is a leap year or not in C++.,Medium,Variables
+"Determine the largest of three integer numbers 'a', 'b', and 'c' in C++.",Medium,Variables
+Calculate the power of a number 'x' raised to an integer exponent 'n' in C++.,Medium,Variables
+Find the absolute value of a given integer 'x' in C++.,Medium,Variables
+"Calculate the average of three floating-point numbers 'x', 'y', and 'z' in C++.",Medium,Variables
+Check if a given integer 'num' is even or odd in C++.,Medium,Variables
+Calculate the perimeter of a triangle given its three sides in C++.,Medium,Variables
+Calculate the area of a circle given its radius in C++.,Medium,Variables
+"Determine the maximum of three characters 'a', 'b', and 'c' in C++.",Medium,Variables
+Calculate the sum of the first 'n' natural numbers in C++.,Medium,Variables
+Check if a given character 'ch' is an uppercase letter or not in C++.,Medium,Variables
+Convert a given character to lowercase in C++.,Medium,Variables
+Check if a given integer 'n' is a palindrome or not in C++.,Medium,Variables
+Calculate the factorial of a non-negative integer 'n' using recursion in C++.,Medium,Variables
+Swap two floating-point variables 'x' and 'y' without using a temporary variable in C++.,Medium,Variables
+"Check if a given integer 'num' is positive, negative, or zero in C++.",Medium,Variables
+Calculate the sum of squares of the first 'n' natural numbers in C++.,Medium,Variables
+Write a C++ program to demonstrate the difference between signed and unsigned integers by performing arithmetic operations on them.,Hard,Variables
+Create a C++ program to allocate memory dynamically using 'new' keyword. Explain the difference between stack and heap memory allocation.,Hard,Variables
+Write a C++ program to illustrate implicit and explicit type conversion. Provide examples for both cases.,Hard,Variables
+Implement a C++ program using the 'auto' keyword to automatically deduce the variable type. Provide multiple examples.,Hard,Variables
+Create a C++ program that demonstrates the usage of 'char' and 'wchar_t' data types. Explain when each should be used.,Hard,Variables
+Write a C++ program to show the usage of reference variables. Provide examples demonstrating their differences from pointers.,Hard,Variables
+Implement a C++ program utilizing the 'constexpr' keyword to declare constant expressions. Provide multiple examples.,Hard,Variables
+Create a C++ program comparing 'float' and 'double' data types by performing arithmetic operations. Explain when to use each.,Hard,Variables
+Write a C++ program using 'nullptr' to demonstrate null pointer assignments. Explain its benefits over 'NULL'.,Hard,Variables
+Implement a C++ program to show the differences between 'const' and 'constexpr' variables. Provide examples to illustrate.,Hard,Variables
+Create a C++ program to showcase the usage of 'volatile' keyword with variables. Explain its significance in multithreaded environments.,Hard,Variables
+"Write a C++ program to demonstrate type casting between different data types, including static_cast, dynamic_cast, const_cast, and reinterpret_cast.",Hard,Variables
+Implement a C++ program that utilizes 'decltype' to deduce the type of an expression. Provide examples showcasing its usage.,Hard,Variables
+Create a C++ program that demonstrates the usage of 'sizeof' operator to determine the size of different data types. Provide output for each type.,Hard,Variables
+Write a C++ program to show the usage of 'bool' data type in conditional statements. Provide examples demonstrating its behavior.,Hard,Variables
+Implement a C++ program to illustrate the usage of 'enum' data type. Provide examples for both unscoped and scoped enums.,Hard,Variables
+Create a C++ program to show how to initialize variables using uniform initialization syntax. Provide examples for different types.,Hard,Variables
+Write a C++ program to demonstrate the usage of 'char_traits' template class for character manipulation. Provide examples of string operations.,Hard,Variables
+Implement a C++ program that utilizes 'std::initializer_list' to initialize variables. Provide examples for different types of initialization lists.,Hard,Variables
+Create a C++ program to illustrate the usage of 'static_assert' to perform compile-time assertions. Provide examples with different conditions.,Hard,Variables
+Write a C++ program to demonstrate the concept of 'rvalue references' and 'move semantics'. Provide examples showcasing their benefits.,Hard,Variables
+Implement a C++ program that utilizes 'decltype(auto)' to deduce the return type of a function. Provide examples demonstrating its usage.,Hard,Variables
+Create a C++ program to showcase the usage of 'typeid' operator to determine the type of an expression. Provide output for different expressions.,Hard,Variables
+Write a C++ program to demonstrate the usage of 'alignas' and 'alignof' keywords for memory alignment. Provide examples with different data types.,Hard,Variables
+Implement a C++ program that illustrates the usage of 'std::nullptr_t' type for representing null pointers. Provide examples demonstrating its usage.,Hard,Variables
+Create a C++ program to showcase the usage of 'std::byte' type for low-level byte manipulation. Provide examples with bitwise operations.,Hard,Variables
+Write a C++ program to demonstrate the usage of 'std::reference_wrapper' for creating references to variables. Provide examples demonstrating its usage.,Hard,Variables
+Implement a C++ program that illustrates the usage of 'std::decay' template for type decay. Provide examples with different data types.,Hard,Variables
+Create a C++ program to showcase the usage of 'decltype' with functions to deduce return types. Provide examples with different function signatures.,Hard,Variables
+Write a C++ program to demonstrate the usage of 'volatile' keyword with pointers to prevent compiler optimizations. Provide examples with memory access operations.,Hard,Variables
+Write a C++ function named 'add' that takes two integers as parameters and returns their sum.,Easy,Functions
+Create a C++ function named 'multiply' that takes two floating-point numbers as arguments and returns their product.,Easy,Functions
+"Define a C++ function named 'isEven' that takes an integer parameter and returns true if it's even, otherwise false.",Easy,Functions
+Write a C++ function called 'greet' that takes a string parameter 'name' and prints a greeting message.,Easy,Functions
+Implement a C++ function named 'absolute' that returns the absolute value of a given integer.,Easy,Functions
+Create a C++ function named 'average' that calculates the average of three floating-point numbers passed as parameters.,Easy,Functions
+Define a C++ function named 'max' that takes two integers as input and returns the maximum of the two.,Easy,Functions
+Write a C++ function named 'power' that takes two integers 'base' and 'exponent' and computes the power.,Easy,Functions
+"Create a C++ function called 'isPrime' that takes an integer parameter and returns true if it's a prime number, otherwise false.",Easy,Functions
+Implement a C++ function named 'printSquare' that takes an integer parameter and prints its square.,Easy,Functions
+Define a C++ function named 'swap' that swaps the values of two integer variables passed by reference.,Easy,Functions
+Write a C++ function named 'reverseString' that takes a string parameter and prints the string in reverse order.,Easy,Functions
+Create a C++ function called 'cube' that takes an integer parameter and returns its cube.,Easy,Functions
+"Define a C++ function named 'isLeapYear' that takes a year as an integer parameter and returns true if it's a leap year, otherwise false.",Easy,Functions
+Write a C++ function named 'printEvenNumbers' that takes an integer parameter 'n' and prints all even numbers from 1 to n.,Easy,Functions
+Implement a C++ function named 'factorial' that takes an integer parameter and computes its factorial.,Easy,Functions
+"Create a C++ function called 'findMax' that takes an array of integers and its size as parameters, and returns the maximum element.",Easy,Functions
+"Define a C++ function named 'isPalindrome' that takes a string parameter and returns true if it's a palindrome, otherwise false.",Easy,Functions
+Write a C++ function named 'printPattern' that takes an integer parameter 'rows' and prints a pattern of asterisks.,Easy,Functions
+"Implement a C++ function named 'sumArray' that takes an array of integers and its size as parameters, and returns the sum of elements.",Easy,Functions
+Create a C++ function called 'countDigits' that takes an integer parameter and returns the number of digits in it.,Easy,Functions
+"Define a C++ function named 'computeAverage' that takes an array of floating-point numbers and its size as parameters, and returns the average.",Easy,Functions
+Write a C++ function named 'printFibonacci' that takes an integer parameter 'n' and prints the first 'n' Fibonacci numbers.,Easy,Functions
+"Implement a C++ function named 'findMin' that takes an array of integers and its size as parameters, and returns the minimum element.",Easy,Functions
+"Create a C++ function called 'isVowel' that takes a character parameter and returns true if it's a vowel, otherwise false.",Easy,Functions
+Define a C++ function named 'printTable' that takes an integer parameter 'n' and prints the multiplication table of 'n'.,Easy,Functions
+"Write a C++ function named 'linearSearch' that takes an array of integers, its size, and a target value as parameters, and returns the index of the target value if found, otherwise -1.",Easy,Functions
+"Implement a C++ function named 'reverseArray' that takes an array of integers and its size as parameters, and reverses the elements in the array.",Easy,Functions
+"Create a C++ function called 'calculateInterest' that takes principal amount, rate of interest, and time as parameters, and returns the simple interest.",Easy,Functions
+Define a C++ function named 'printFactors' that takes an integer parameter 'n' and prints all factors of 'n'.,Easy,Functions
+"Write a C++ function named 'calculateAverage' that takes an array of integers and its size as parameters, and returns the average of the elements.",Medium,Functions
+Create a C++ function called 'calculateFactorial' that takes an integer parameter 'n' and computes its factorial iteratively.,Medium,Functions
+Define a C++ function named 'calculatePower' that takes two integers 'base' and 'exponent' as parameters and computes the power iteratively.,Medium,Functions
+Implement a C++ function named 'countDigits' that takes an integer parameter and returns the number of digits in it.,Medium,Functions
+"Write a C++ function named 'findMax' that takes an array of integers and its size as parameters, and returns the maximum element without using sorting algorithms.",Medium,Functions
+"Create a C++ function called 'isPrime' that takes an integer parameter and returns true if it's a prime number, otherwise false.",Medium,Functions
+Define a C++ function named 'reverseString' that takes a string parameter and returns the string in reverse order.,Medium,Functions
+"Implement a C++ function named 'sumArray' that takes an array of integers and its size as parameters, and returns the sum of elements.",Medium,Functions
+"Write a C++ function named 'isPalindrome' that takes a string as a parameter and returns true if it's a palindrome, otherwise false.",Medium,Functions
+Create a C++ function called 'computeSquare' that takes an integer parameter and returns its square.,Medium,Functions
+"Define a C++ function named 'calculateSimpleInterest' that takes principal amount, rate of interest, and time as parameters, and returns the simple interest.",Medium,Functions
+"Implement a C++ function named 'findMin' that takes an array of integers and its size as parameters, and returns the minimum element without using sorting algorithms.",Medium,Functions
+"Write a C++ function named 'isVowel' that takes a character parameter and returns true if it's a vowel, otherwise false.",Medium,Functions
+"Create a C++ function called 'reverseArray' that takes an array of integers and its size as parameters, and reverses the elements in the array.",Medium,Functions
+Define a C++ function named 'calculateGCD' that takes two integers as parameters and returns their greatest common divisor (GCD) without using recursion.,Medium,Functions
+"Implement a C++ function named 'linearSearch' that takes an array of integers, its size, and a target value as parameters, and returns the index of the target value without using recursion or sorting algorithms.",Medium,Functions
+Write a C++ function named 'calculateSquareRoot' that takes a floating-point number as a parameter and returns its square root.,Medium,Functions
+Create a C++ function called 'printPattern' that takes an integer parameter 'rows' and prints a pattern of asterisks without using recursion.,Medium,Functions
+Define a C++ function named 'calculateLCM' that takes two integers as parameters and returns their least common multiple (LCM).,Medium,Functions
+Implement a C++ function named 'calculateSumOfDigits' that takes an integer parameter and returns the sum of its digits without using recursion.,Medium,Functions
+Write a C++ function named 'calculateExponent' that takes two integers 'base' and 'exponent' as parameters and computes the power without using recursion.,Medium,Functions
+"Create a C++ function called 'isPerfectSquare' that takes an integer parameter and returns true if it's a perfect square, otherwise false.",Medium,Functions
+Define a C++ function named 'reverseInteger' that takes an integer parameter and returns its reverse without using recursion.,Medium,Functions
+Implement a C++ function named 'calculateAreaOfCircle' that takes the radius as a parameter and returns the area of the circle.,Medium,Functions
+Write a C++ function named 'countConsonants' that takes a string as a parameter and returns the number of consonants without using recursion.,Medium,Functions
+Create a C++ function called 'computeFactorial' that takes an integer parameter 'n' and computes its factorial using loop.,Medium,Functions
+"Define a C++ function named 'findMaxAndMin' that takes an array of integers and its size as parameters, and returns both the maximum and minimum elements without using sorting algorithms.",Medium,Functions
+Implement a C++ function named 'calculateHypotenuse' that takes the lengths of two sides of a right triangle as parameters and returns the length of the hypotenuse.,Medium,Functions
+Write a C++ function named 'printMultiplicationTable' that takes an integer parameter 'n' and prints the multiplication table up to 10 for that number.,Medium,Functions
+Create a C++ function called 'computeSumOfDigits' that takes an integer parameter and returns the sum of its digits using loop.,Medium,Functions
+"Write a C++ function named 'findUnique' that takes an array of integers and its size as parameters, and returns the unique element in the array. The array contains only one unique element, and all other elements are repeated an even number of times.",Hard,Functions
+"Create a C++ function called 'calculateBinomialCoefficient' that takes two integers 'n' and 'k' as parameters and computes the binomial coefficient C(n, k) using Pascal's triangle approach.",Hard,Functions
+"Define a C++ function named 'calculateMedian' that takes two sorted arrays of integers and their sizes as parameters, and returns the median of the combined array in O(log(min(m, n))) time complexity.",Hard,Functions
+"Implement a C++ function named 'countSubstringOccurrences' that takes a string 'text' and a substring 'pattern' as parameters, and returns the count of occurrences of the substring in the text.",Hard,Functions
+Write a C++ function named 'findLongestSubstring' that takes a string as a parameter and returns the length of the longest substring without repeating characters.,Hard,Functions
+Create a C++ function called 'calculateDeterminant' that takes a square matrix as a parameter and returns its determinant using the Laplace expansion approach.,Hard,Functions
+"Define a C++ function named 'isBalancedParentheses' that takes a string containing only parentheses as a parameter and returns true if the parentheses are balanced, otherwise false.",Hard,Functions
+"Implement a C++ function named 'countTriplets' that takes an array of integers and its size as parameters, and returns the count of triplets (i, j, k) where i < j < k and arr[i] < arr[j] < arr[k].",Hard,Functions
+Write a C++ function named 'generatePermutations' that takes a string as a parameter and generates all possible permutations of its characters.,Hard,Functions
+Create a C++ function called 'findLongestPalindromicSubstring' that takes a string as a parameter and returns the longest palindromic substring within it.,Hard,Functions
+Define a C++ function named 'calculateNthPrime' that takes an integer 'n' as a parameter and returns the nth prime number.,Hard,Functions
+"Implement a C++ function named 'countPathsInGrid' that takes two integers 'm' and 'n' representing the dimensions of a grid, and returns the count of unique paths from the top-left corner to the bottom-right corner, where you can only move down or right.",Hard,Functions
+Write a C++ function named 'generateGrayCodeSequence' that takes an integer 'n' as a parameter and generates the Gray code sequence of length 2^n.,Hard,Functions
+"Create a C++ function called 'calculateEditDistance' that takes two strings as parameters and returns the minimum number of operations required to convert one string into another, where the operations are insertion, deletion, or substitution of a single character.",Hard,Functions
+"Define a C++ function named 'findPeakElement' that takes an array of integers and its size as parameters, and returns the index of any peak element if it exists, otherwise -1. A peak element is an element that is greater than or equal to its neighbors.",Hard,Functions
+"Implement a C++ function named 'findLargestRectangleArea' that takes an array of integers representing the heights of bars in a histogram and its size as parameters, and returns the area of the largest rectangle that can be formed within the histogram's bars.",Hard,Functions
+"Write a C++ function named 'countDistinctSubarrays' that takes an array of integers and its size as parameters, and returns the count of distinct subarrays within it.",Hard,Functions
+"Create a C++ function called 'calculateJosephusProblem' that takes two integers 'n' and 'k' as parameters, and returns the survivor's position in the Josephus problem where 'n' represents the total number of people standing in a circle and 'k' represents the count of skipping before elimination.",Hard,Functions
+"Define a C++ function named 'findLongestConsecutiveSequence' that takes an array of integers and its size as parameters, and returns the length of the longest consecutive sequence of integers within it.",Hard,Functions
+"Implement a C++ function named 'countInversions' that takes an array of integers and its size as parameters, and returns the count of inversions present in the array.",Hard,Functions
+"Write a C++ function named 'findLongestIncreasingSubsequence' that takes an array of integers and its size as parameters, and returns the length of the longest increasing subsequence within it.",Hard,Functions
+Create a C++ function called 'calculateLargestPalindromeProduct' that takes an integer 'n' as a parameter and returns the largest palindrome number that is a product of two n-digit numbers.,Hard,Functions
+"Define a C++ function named 'findKthSmallestElement' that takes an array of integers, its size, and an integer 'k' as parameters, and returns the kth smallest element in the array.",Hard,Functions
+Implement a C++ function named 'generateParentheses' that takes an integer 'n' as a parameter and generates all valid combinations of 'n' pairs of parentheses.,Hard,Functions
+"Write a C++ function named 'findMaximalSquare' that takes a 2D binary matrix (filled with 0's and 1's) and its dimensions as parameters, and returns the area of the largest square containing only 1's.",Hard,Functions
+Create a C++ function called 'calculateNthFibonacci' that takes an integer 'n' as a parameter and returns the nth Fibonacci number using matrix exponentiation.,Hard,Functions
+"Define a C++ function named 'sortColors' that takes an array of integers containing only 0's, 1's, and 2's as parameters, and sorts the array in-place in O(n) time complexity.",Hard,Functions
+"Implement a C++ function named 'findLongestCommonPrefix' that takes an array of strings and its size as parameters, and returns the longest common prefix among them.",Hard,Functions
+Write a C++ function named 'calculateDistinctSubsequences' that takes a string as a parameter and returns the count of distinct subsequences it contains.,Hard,Functions
+"Create a C++ function called 'findCelebrity' that takes a 2D array representing the acquaintance matrix of people (where a[i][j] = 1 means person i knows person j) and its size as parameters, and returns the index of the celebrity if found, otherwise -1. A celebrity is a person who knows no one but is known by everyone else.",Hard,Functions
+Write a C++ program to check if a number entered by the user is even or odd.,Easy,If-else
+Create a C++ program to determine whether a student passed or failed an exam based on their score.,Easy,If-else
+Write a C++ program to find the maximum of two numbers entered by the user.,Easy,If-else
+Create a C++ program to determine if a given character is a vowel or a consonant.,Easy,If-else
+Write a C++ program to check if a year entered by the user is a leap year or not.,Easy,If-else
+Create a C++ program to find the minimum of three numbers entered by the user.,Easy,If-else
+"Write a C++ program to determine whether a given number is positive, negative, or zero.",Easy,If-else
+"Create a C++ program to calculate the total cost of items purchased, applying a discount based on the total amount spent.",Easy,If-else
+Write a C++ program to determine the eligibility of a person to vote based on their age.,Easy,If-else
+Create a C++ program to check if a given character is an alphabet or not.,Easy,If-else
+Write a C++ program to determine the largest of three numbers entered by the user.,Easy,If-else
+"Create a C++ program to check if a triangle is equilateral, isosceles, or scalene based on the lengths of its sides.",Easy,If-else
+Write a C++ program to determine if a given character is a digit or not.,Easy,If-else
+"Create a C++ program to calculate the total salary of an employee, including overtime pay if applicable.",Easy,If-else
+Write a C++ program to determine the grade of a student based on their percentage score.,Easy,If-else
+Create a C++ program to check if a given year is a century year or not.,Easy,If-else
+Write a C++ program to determine the eligibility of a person to drive based on their age and whether they have a valid driver's license.,Easy,If-else
+Create a C++ program to calculate the discount percentage based on the purchase amount.,Easy,If-else
+Write a C++ program to determine if a given character is an uppercase letter or a lowercase letter.,Easy,If-else
+Create a C++ program to determine the quadrant in which a given point lies.,Easy,If-else
+"Write a C++ program to calculate the total fare for a taxi ride, considering the initial fare and additional charges based on distance traveled.",Easy,If-else
+"Create a C++ program to determine the type of angle (acute, obtuse, or right) based on its measure.",Easy,If-else
+Write a C++ program to determine if a given year is a leap year or not using nested if-else statements.,Easy,If-else
+"Create a C++ program to determine the eligibility of a person to join the army based on their age, gender, and physical fitness.",Easy,If-else
+Write a C++ program to determine the discount amount based on the purchase amount and apply different discounts for different ranges of purchase amounts.,Easy,If-else
+Create a C++ program to determine if a given number is prime or composite.,Easy,If-else
+Write a C++ program to determine if a given character is a special symbol or not.,Easy,If-else
+Create a C++ program to determine if a given number is a perfect square or not.,Easy,If-else
+Write a C++ program to determine the eligibility of a person to apply for a scholarship based on their academic performance.,Easy,If-else
+Create a C++ program to determine if a given year is a leap year or not using a conditional operator.,Easy,If-else
+Write a C++ program to determine if a given character is an alphanumeric character or not.,Easy,If-else
+Write a C++ program that takes two integers as input and prints the maximum of them using if-else statements.,Medium,If-else
+"Create a C++ program to determine whether a given number is positive, negative, or zero using if-else statements.",Medium,If-else
+Write a C++ program to check whether a character entered by the user is an uppercase alphabet or not using if-else statements.,Medium,If-else
+Create a C++ program to check whether a given number is even or odd using if-else statements.,Medium,If-else
+Write a C++ program to determine the eligibility of a candidate for voting based on their age using if-else statements.,Medium,If-else
+Create a C++ program to calculate the electricity bill for a household based on the number of units consumed using if-else statements.,Medium,If-else
+Write a C++ program to check whether a given number is divisible by 5 and 11 or not using if-else statements.,Medium,If-else
+Create a C++ program to check whether a character entered by the user is a vowel or consonant using if-else statements.,Medium,If-else
+Write a C++ program to check whether a given year is a leap year or not using if-else statements.,Medium,If-else
+"Create a C++ program to determine whether a triangle is equilateral, isosceles, or scalene based on the lengths of its sides using if-else statements.",Medium,If-else
+Write a C++ program to check whether a given character entered by the user is an alphabet or not using if-else statements.,Medium,If-else
+Create a C++ program to calculate the income tax for an individual based on their income using if-else statements.,Medium,If-else
+Write a C++ program to check whether a given number entered by the user is a perfect number or not using if-else statements.,Medium,If-else
+"Create a C++ program to calculate the compound interest for a given principal amount, rate, and time using if-else statements.",Medium,If-else
+Write a C++ program to check whether a given character entered by the user is a digit or not using if-else statements.,Medium,If-else
+Create a C++ program to find the roots of a quadratic equation entered by the user using if-else statements.,Medium,If-else
+Write a C++ program to check whether a given number is a palindrome or not using if-else statements.,Medium,If-else
+"Create a C++ program to check whether a given character is an alphabet, digit, or special character using if-else statements.",Medium,If-else
+Write a C++ program to calculate the area of a triangle given its base and height using if-else statements.,Medium,If-else
+Create a C++ program to determine the eligibility for admission to a professional course based on the marks scored in an entrance exam using if-else statements.,Medium,If-else
+Write a C++ program to find the factorial of a number entered by the user using if-else statements.,Medium,If-else
+Create a C++ program to check whether a given number entered by the user is a strong number or not using if-else statements.,Medium,If-else
+Write a C++ program to determine whether a given year is a leap year or not using if-else statements.,Medium,If-else
+"Create a C++ program to determine whether a given character entered by the user is a vowel, consonant, digit, or special character using if-else statements.",Medium,If-else
+Write a C++ program to find the largest of three numbers entered by the user using if-else statements.,Medium,If-else
+Create a C++ program to check whether a number entered by the user is a palindrome or not using if-else statements.,Medium,If-else
+Write a C++ program to check whether a given number is prime or not using if-else statements.,Medium,If-else
+Create a C++ program to find the sum of digits of a number entered by the user using if-else statements.,Medium,If-else
+Write a C++ program to convert uppercase to lowercase and vice versa for a character entered by the user using if-else statements.,Medium,If-else
+Write a C++ program to simulate the game of Rock-Paper-Scissors against the computer using conditionals.,Hard,If-else
+"Create a C++ program to implement a simple calculator that performs addition, subtraction, multiplication, and division operations based on user input using conditionals.",Hard,If-else
+"Write a C++ program to solve a quadratic equation ax^2 + bx + c = 0 using the quadratic formula, considering all possible cases of roots using conditionals.",Hard,If-else
+Create a C++ program to implement a basic text-based adventure game where the player makes choices that affect the outcome of the story using conditionals.,Hard,If-else
+"Write a C++ program to check whether a given year is a leap year or not, considering all rules for leap years using conditionals.",Hard,If-else
+"Create a C++ program to implement a simple ATM machine that allows users to withdraw, deposit, and check their balance using conditionals.",Hard,If-else
+Write a C++ program to determine the day of the week for a given date using Zeller's congruence algorithm with conditionals.,Hard,If-else
+"Create a C++ program to implement a Tic-Tac-Toe game where two players can play against each other, considering all possible winning combinations using conditionals.",Hard,If-else
+Write a C++ program to implement a basic text-based quiz game where questions are presented to the user and their answers are evaluated using conditionals.,Hard,If-else
+Create a C++ program to implement a basic grading system for students based on their marks in multiple subjects using conditionals.,Hard,If-else
+"Write a C++ program to determine the roots of a cubic equation ax^3 + bx^2 + cx + d = 0, considering all possible cases of roots using conditionals.",Hard,If-else
+Create a C++ program to implement a simple alarm clock that allows users to set alarms and notifies them when the alarm time is reached using conditionals.,Hard,If-else
+Write a C++ program to implement a simple voting system where users can cast their votes for different candidates and the winner is determined using conditionals.,Hard,If-else
+"Create a C++ program to simulate a basic traffic light system with red, yellow, and green lights that change according to predefined intervals using conditionals.",Hard,If-else
+"Write a C++ program to determine whether a given year is a leap year or not using conditionals, but considering the Gregorian calendar adjustments.",Hard,If-else
+"Create a C++ program to implement a basic banking system that allows users to create accounts, deposit money, withdraw money, and transfer funds using conditionals.",Hard,If-else
+"Write a C++ program to determine whether a given integer is a palindrome or not using conditionals, without converting it to a string.",Hard,If-else
+"Create a C++ program to implement a basic file management system where users can create, read, update, and delete files using conditionals.",Hard,If-else
+Write a C++ program to simulate a simple elevator system with multiple floors and buttons for users to select their desired floor using conditionals.,Hard,If-else
+"Create a C++ program to implement a basic inventory management system for a store, allowing users to add, remove, and update items in the inventory using conditionals.",Hard,If-else
+"Write a C++ program to determine the day of the week for a given date using Zeller's congruence algorithm with conditionals, but allowing for date input in any format.",Hard,If-else
+Create a C++ program to implement a basic text encryption and decryption system using a simple substitution cipher with conditionals.,Hard,If-else
+"Write a C++ program to implement a basic online reservation system for a cinema, allowing users to book seats for different movie screenings using conditionals.",Hard,If-else
+"Create a C++ program to simulate a basic game of Blackjack between a player and the computer, implementing the rules of the game using conditionals.",Hard,If-else
+"Write a C++ program to implement a basic alarm system that triggers when certain conditions are met, such as temperature thresholds or motion detection using conditionals.",Hard,If-else
+Create a C++ program to implement a simple chatbot that responds to user input with predefined messages using conditionals.,Hard,If-else
+"Write a C++ program to determine the roots of a quartic equation ax^4 + bx^3 + cx^2 + dx + e = 0, considering all possible cases of roots using conditionals.",Hard,If-else
+"Create a C++ program to implement a basic ticket reservation system for an event, allowing users to select seats and purchase tickets using conditionals.",Hard,If-else
+"Write a C++ program to implement a basic music player that allows users to play, pause, stop, skip, and rewind songs using conditionals.",Hard,If-else
+Create a C++ program to simulate a basic weather forecasting system that predicts weather conditions for the next few days using conditionals.,Hard,If-else
+Write a C++ program to implement a simple alarm clock that allows users to set multiple alarms and notifies them when any alarm time is reached using conditionals.,Hard,If-else
+Write a C++ program to print the numbers from 1 to 10 using a for loop.,Easy,Loops
+Create a C++ program to calculate the sum of natural numbers up to 100 using a for loop.,Easy,Loops
+Write a C++ program to print the multiplication table of a given number using a for loop.,Easy,Loops
+Create a C++ program to find the factorial of a number entered by the user using a for loop.,Easy,Loops
+Write a C++ program to print the Fibonacci series up to 20 terms using a for loop.,Easy,Loops
+Create a C++ program to print the even numbers from 1 to 20 using a for loop.,Easy,Loops
+Write a C++ program to calculate the sum of even numbers from 1 to 50 using a for loop.,Easy,Loops
+Create a C++ program to print the reverse of a given number using a for loop.,Easy,Loops
+Write a C++ program to check whether a given number is prime or not using a for loop.,Easy,Loops
+Create a C++ program to print the ASCII values of all lowercase letters using a for loop.,Easy,Loops
+Write a C++ program to print the first 10 natural numbers in reverse order using a for loop.,Easy,Loops
+Create a C++ program to find the sum of digits of a number entered by the user using a for loop.,Easy,Loops
+Write a C++ program to print the square of numbers from 1 to 10 using a for loop.,Easy,Loops
+Create a C++ program to print the pattern: 1 22 333 4444 55555 using a for loop.,Easy,Loops
+Write a C++ program to calculate the sum of odd numbers from 1 to 50 using a for loop.,Easy,Loops
+Create a C++ program to find the largest among three numbers entered by the user using a for loop.,Easy,Loops
+Write a C++ program to print the Armstrong numbers between 1 and 500 using a for loop.,Easy,Loops
+Create a C++ program to print all the factors of a number entered by the user using a for loop.,Easy,Loops
+Write a C++ program to calculate the power of a number using a for loop.,Easy,Loops
+Create a C++ program to print the GCD of two numbers entered by the user using a for loop.,Easy,Loops
+Write a C++ program to find the sum of series: 1 + 1/2 + 1/3 + ... + 1/n using a for loop.,Easy,Loops
+Create a C++ program to print the pattern: 1 12 123 1234 12345 using a for loop.,Easy,Loops
+Write a C++ program to check whether a given number is palindrome or not using a for loop.,Easy,Loops
+Create a C++ program to count the number of digits in a number entered by the user using a for loop.,Easy,Loops
+Write a C++ program to find the sum of squares of first 10 natural numbers using a for loop.,Easy,Loops
+Create a C++ program to print the ASCII values of all uppercase letters using a for loop.,Easy,Loops
+Write a C++ program to find the LCM of two numbers entered by the user using a for loop.,Easy,Loops
+Create a C++ program to print the pattern: * ** *** **** ***** using a for loop.,Easy,Loops
+Write a C++ program to print the reverse of a string entered by the user using a for loop.,Easy,Loops
+Create a C++ program to find the sum of the series: 1 + 2 + 3 + ... + n using a for loop.,Easy,Loops
+Write a C++ program to calculate the factorial of numbers from 1 to 10 using a for loop.,Easy,Loops
+Write a C++ program to find the factorial of a number using a while loop.,Medium,Loops
+Create a C++ program to print the Fibonacci series up to n terms using a do-while loop.,Medium,Loops
+Write a C++ program to calculate the sum of all elements in an array using a for loop.,Medium,Loops
+Create a C++ program to count the number of digits in a given number using a while loop.,Medium,Loops
+"Write a C++ program to print the pattern: 1
+22
+333
+4444
+55555 using nested for loops.",Medium,Loops
+Create a C++ program to find the GCD (Greatest Common Divisor) of two numbers using a do-while loop.,Medium,Loops
+Write a C++ program to calculate the power of a number using a for loop.,Medium,Loops
+Create a C++ program to check whether a given number is prime or not using a while loop.,Medium,Loops
+"Write a C++ program to print the pattern: *
+**
+***
+****
+***** using nested for loops.",Medium,Loops
+Create a C++ program to find the reverse of a number using a while loop.,Medium,Loops
+Write a C++ program to find the sum of digits of a number using a do-while loop.,Medium,Loops
+Create a C++ program to print all prime numbers between two given numbers using a for loop.,Medium,Loops
+Write a C++ program to calculate the factorial of a number using a do-while loop.,Medium,Loops
+"Create a C++ program to print the pattern: 1
+21
+321
+4321
+54321 using nested for loops.",Medium,Loops
+Write a C++ program to check whether a given number is Armstrong or not using a while loop.,Medium,Loops
+Create a C++ program to find the sum of all even numbers between two given numbers using a for loop.,Medium,Loops
+Write a C++ program to find the sum of natural numbers up to n using a while loop.,Medium,Loops
+"Create a C++ program to print the pattern: A
+BB
+CCC
+DDDD
+EEEEE using nested for loops.",Medium,Loops
+Write a C++ program to find the sum of first n prime numbers using a while loop.,Medium,Loops
+Create a C++ program to find the product of digits of a number using a do-while loop.,Medium,Loops
+Write a C++ program to print all Armstrong numbers between two given numbers using a for loop.,Medium,Loops
+"Create a C++ program to print the pattern: *
+***
+*****
+*******
+********* using nested for loops.",Medium,Loops
+Write a C++ program to generate the nth Fibonacci number using a while loop.,Medium,Loops
+Create a C++ program to find the sum of all odd numbers between two given numbers using a for loop.,Medium,Loops
+Write a C++ program to print all perfect numbers between two given numbers using a do-while loop.,Medium,Loops
+Create a C++ program to find the number of digits in a given number using a for loop.,Medium,Loops
+Write a C++ program to check whether a given number is a palindrome or not using a while loop.,Medium,Loops
+"Create a C++ program to print the pattern: 1
+23
+456
+78910 using nested for loops.",Medium,Loops
+Write a C++ program to calculate the sum of digits of a number using a for loop.,Medium,Loops
+Create a C++ program to find the LCM (Least Common Multiple) of two numbers using a do-while loop.,Medium,Loops
+Write a C++ program to implement the Sieve of Eratosthenes algorithm to find all prime numbers less than n.,Hard,Loops
+Create a C++ program to generate all possible combinations of r elements in a given array of size n.,Hard,Loops
+Write a C++ program to implement the Kadane's algorithm to find the maximum sum subarray in a given array.,Hard,Loops
+Create a C++ program to generate all permutations of a given string.,Hard,Loops
+Write a C++ program to implement the Floyd's triangle with n rows.,Hard,Loops
+Create a C++ program to find the number of paths in a grid from top-left to bottom-right corner using dynamic programming.,Hard,Loops
+Write a C++ program to implement the Miller-Rabin primality test to check if a given number is prime.,Hard,Loops
+Create a C++ program to generate Pascal's triangle up to n rows.,Hard,Loops
+Write a C++ program to implement the Boyer-Moore majority vote algorithm to find the majority element in an array.,Hard,Loops
+Create a C++ program to find the number of distinct subsequences of a given string.,Hard,Loops
+Write a C++ program to implement the Dijkstra's algorithm to find the shortest path in a weighted graph.,Hard,Loops
+Create a C++ program to find the longest increasing subsequence in a given array.,Hard,Loops
+Write a C++ program to implement the Euclidean algorithm to find the GCD of two numbers.,Hard,Loops
+Create a C++ program to find the number of ways to reach the nth stair using dynamic programming.,Hard,Loops
+Write a C++ program to implement the Rabin-Karp algorithm for string searching.,Hard,Loops
+Create a C++ program to solve the subset sum problem using dynamic programming.,Hard,Loops
+Write a C++ program to implement the Tarjan's strongly connected components algorithm.,Hard,Loops
+Create a C++ program to generate Gray codes of length n.,Hard,Loops
+Write a C++ program to implement the Karatsuba algorithm for fast multiplication of large numbers.,Hard,Loops
+Create a C++ program to find the length of the longest common subsequence of two given strings.,Hard,Loops
+Write a C++ program to implement the Ford-Fulkerson algorithm for maximum flow in a flow network.,Hard,Loops
+Create a C++ program to solve the 0-1 knapsack problem using dynamic programming.,Hard,Loops
+Write a C++ program to implement the Manacher's algorithm for finding the longest palindromic substring.,Hard,Loops
+Create a C++ program to generate all possible subsets of a given set.,Hard,Loops
+Write a C++ program to implement the KMP (Knuth-Morris-Pratt) algorithm for pattern searching.,Hard,Loops
+Create a C++ program to solve the traveling salesman problem using dynamic programming.,Hard,Loops
+Write a C++ program to implement the Bellman-Ford algorithm to find the shortest path in a weighted graph with negative edges.,Hard,Loops
+Create a C++ program to find the maximum subarray sum in a circular array.,Hard,Loops
+Write a C++ program to implement the Levenshtein distance algorithm for calculating the edit distance between two strings.,Hard,Loops
+Create a C++ program to solve the longest common substring problem using dynamic programming.,Hard,Loops
+Write a C++ program to print all elements of an array.,Easy,Arrays
+Create a C++ program to calculate the sum of all elements in an array.,Easy,Arrays
+Write a C++ program to find the largest element in an array.,Easy,Arrays
+Create a C++ program to find the smallest element in an array.,Easy,Arrays
+Write a C++ program to count the number of even elements in an array.,Easy,Arrays
+Create a C++ program to count the number of odd elements in an array.,Easy,Arrays
+Write a C++ program to calculate the average of elements in an array.,Easy,Arrays
+Create a C++ program to reverse an array.,Easy,Arrays
+Write a C++ program to find the sum of diagonal elements in a square matrix.,Easy,Arrays
+Create a C++ program to find the transpose of a matrix.,Easy,Arrays
+Write a C++ program to find the frequency of each element in an array.,Easy,Arrays
+Create a C++ program to merge two arrays into a single array.,Easy,Arrays
+Write a C++ program to check whether an array is palindrome or not.,Easy,Arrays
+Create a C++ program to remove duplicate elements from an array.,Easy,Arrays
+Write a C++ program to find the second largest element in an array.,Easy,Arrays
+Create a C++ program to sort elements of an array in ascending order.,Easy,Arrays
+Write a C++ program to sort elements of an array in descending order.,Easy,Arrays
+Create a C++ program to find the sum of elements in the odd indices of an array.,Easy,Arrays
+Write a C++ program to find the product of elements in an array.,Easy,Arrays
+Create a C++ program to find the maximum difference between two elements in an array.,Easy,Arrays
+Write a C++ program to find the index of the first occurrence of a specific element in an array.,Easy,Arrays
+Create a C++ program to find the frequency of a specific element in an array.,Easy,Arrays
+Write a C++ program to split an array into two arrays at a specific position.,Easy,Arrays
+Create a C++ program to find the intersection of two arrays.,Easy,Arrays
+Write a C++ program to find the union of two arrays.,Easy,Arrays
+Create a C++ program to check whether two arrays are equal or not.,Easy,Arrays
+Write a C++ program to find the sum of elements in the first half of an array.,Easy,Arrays
+Create a C++ program to find the maximum sum subarray of a given array.,Easy,Arrays
+Write a C++ program to check whether an array is sorted in ascending order.,Easy,Arrays
+Create a C++ program to remove a specific element from an array and shift the remaining elements to fill the empty space.,Easy,Arrays
+Write a C++ program to find the second smallest element in an array.,Medium,Arrays
+Create a C++ program to rotate an array by d elements to the left.,Medium,Arrays
+Write a C++ program to find the intersection of two arrays.,Medium,Arrays
+Create a C++ program to merge two sorted arrays into a single sorted array.,Medium,Arrays
+Write a C++ program to find the peak element in an array.,Medium,Arrays
+Create a C++ program to move all zeros present in an array to the end.,Medium,Arrays
+Write a C++ program to find the equilibrium index of an array.,Medium,Arrays
+"Create a C++ program to sort an array of 0s, 1s, and 2s (Dutch National Flag problem).",Medium,Arrays
+Write a C++ program to find the majority element in an array.,Medium,Arrays
+Create a C++ program to find the maximum product subarray.,Medium,Arrays
+Write a C++ program to find the missing number in an array containing elements from 1 to n.,Medium,Arrays
+Create a C++ program to remove duplicates from a sorted array.,Medium,Arrays
+Write a C++ program to find the longest subarray with equal number of 0s and 1s.,Medium,Arrays
+Create a C++ program to find the minimum element in a rotated sorted array.,Medium,Arrays
+Write a C++ program to find the maximum length subarray having sum equal to k.,Medium,Arrays
+Create a C++ program to find the smallest positive missing number in an unsorted array.,Medium,Arrays
+Write a C++ program to find the maximum sum subarray with at least k elements.,Medium,Arrays
+Create a C++ program to find the triplet in an array whose sum is equal to a given target.,Medium,Arrays
+Write a C++ program to implement the Josephus Problem.,Medium,Arrays
+Create a C++ program to find the maximum sum of subsequence with no adjacent elements.,Medium,Arrays
+Write a C++ program to find the smallest subarray with sum greater than a given value.,Medium,Arrays
+Create a C++ program to rearrange positive and negative numbers in an array.,Medium,Arrays
+Write a C++ program to find the smallest window in an array containing all elements of another array.,Medium,Arrays
+Create a C++ program to implement the product array puzzle.,Medium,Arrays
+Write a C++ program to find the longest consecutive sequence in an unsorted array.,Medium,Arrays
+Create a C++ program to find the kth smallest element in an unsorted array.,Medium,Arrays
+Write a C++ program to implement the stock buy-sell to maximize profit problem.,Medium,Arrays
+Create a C++ program to find the maximum length subarray with equal number of 0s and 1s.,Medium,Arrays
+Write a C++ program to implement the merge intervals problem.,Medium,Arrays
+Create a C++ program to find the maximum difference between two elements in an array such that the larger element appears after the smaller element.,Medium,Arrays
+Write a C++ program to find the smallest window in a string containing all characters of another string.,Medium,Arrays
+Write a C++ program to find the smallest missing positive integer that does not appear in a given array.,Hard,Arrays
+Create a C++ program to find the maximum length subarray with sum divisible by k.,Hard,Arrays
+Write a C++ program to find the longest subarray with at most k different elements.,Hard,Arrays
+Create a C++ program to solve the maximum profit by buying and selling stocks with cooldown.,Hard,Arrays
+Write a C++ program to implement the number of islands problem.,Hard,Arrays
+Create a C++ program to implement the minimum number of jumps to reach the end of an array.,Hard,Arrays
+Write a C++ program to find the longest increasing subsequence in an array of pairs.,Hard,Arrays
+Create a C++ program to implement the sliding window maximum problem.,Hard,Arrays
+Write a C++ program to implement the maximum sum circular subarray problem.,Hard,Arrays
+Create a C++ program to solve the maximum sum of two non-overlapping subarrays problem.,Hard,Arrays
+Write a C++ program to find the maximum sum rectangle in a 2D matrix.,Hard,Arrays
+Create a C++ program to implement the count of smaller numbers after self problem.,Hard,Arrays
+Write a C++ program to implement the longest palindromic substring problem.,Hard,Arrays
+Create a C++ program to solve the minimum swaps required to group all 1s together problem.,Hard,Arrays
+Write a C++ program to implement the count of range sum problem.,Hard,Arrays
+Create a C++ program to solve the maximum sum of rectangular submatrix problem.,Hard,Arrays
+Write a C++ program to implement the trapping rain water problem.,Hard,Arrays
+Create a C++ program to solve the minimum number of swaps to make the string balanced problem.,Hard,Arrays
+Write a C++ program to implement the maximum frequency stack problem.,Hard,Arrays
+Create a C++ program to solve the maximum rectangle in histogram problem.,Hard,Arrays
+Write a C++ program to implement the sliding window median problem.,Hard,Arrays
+Create a C++ program to solve the largest rectangle in a binary matrix problem.,Hard,Arrays
+Write a C++ program to implement the reverse pairs problem.,Hard,Arrays
+Create a C++ program to solve the subarray sum equals k problem.,Hard,Arrays
+Write a C++ program to implement the find all duplicates in an array problem.,Hard,Arrays
+Create a C++ program to solve the minimum window substring problem.,Hard,Arrays
+Write a C++ program to implement the valid triangle number problem.,Hard,Arrays
+Create a C++ program to solve the remove duplicate letters problem.,Hard,Arrays
+Write a C++ program to implement the maximum frequency of k consecutive elements problem.,Hard,Arrays
+Create a C++ program to solve the minimum falling path sum problem.,Hard,Arrays
+Write a C++ program to add two numbers.,Easy,Arithmetic
+Create a C++ program to subtract two numbers.,Easy,Arithmetic
+Write a C++ program to multiply two numbers.,Easy,Arithmetic
+Create a C++ program to divide two numbers.,Easy,Arithmetic
+Write a C++ program to find the remainder when dividing two numbers.,Easy,Arithmetic
+Create a C++ program to calculate the square of a number.,Easy,Arithmetic
+Write a C++ program to calculate the cube of a number.,Easy,Arithmetic
+Create a C++ program to calculate the square root of a number.,Easy,Arithmetic
+Write a C++ program to calculate the factorial of a number.,Easy,Arithmetic
+Create a C++ program to find the maximum of two numbers.,Easy,Arithmetic
+Write a C++ program to find the minimum of two numbers.,Easy,Arithmetic
+Create a C++ program to swap two numbers.,Easy,Arithmetic
+Write a C++ program to check if a number is even or odd.,Easy,Arithmetic
+Create a C++ program to check if a number is prime.,Easy,Arithmetic
+"Write a C++ program to check if a number is positive, negative, or zero.",Easy,Arithmetic
+Create a C++ program to calculate the sum of digits of a number.,Easy,Arithmetic
+Write a C++ program to calculate the product of digits of a number.,Easy,Arithmetic
+Create a C++ program to calculate the area of a rectangle.,Easy,Arithmetic
+Write a C++ program to calculate the area of a circle.,Easy,Arithmetic
+Create a C++ program to calculate the perimeter of a rectangle.,Easy,Arithmetic
+Write a C++ program to calculate the perimeter of a circle.,Easy,Arithmetic
+Create a C++ program to calculate the average of three numbers.,Easy,Arithmetic
+Write a C++ program to calculate the distance between two points.,Easy,Arithmetic
+Create a C++ program to calculate the volume of a cube.,Easy,Arithmetic
+Write a C++ program to calculate the volume of a cylinder.,Easy,Arithmetic
+Create a C++ program to calculate the simple interest.,Easy,Arithmetic
+Write a C++ program to calculate the compound interest.,Easy,Arithmetic
+Create a C++ program to round a given floating-point number to the nearest integer.,Easy,Arithmetic
+Write a C++ program to calculate the power of a number.,Easy,Arithmetic
+Create a C++ program to find the absolute value of a number.,Easy,Arithmetic
+Write a C++ program to find the factorial of a number using recursion.,Medium,Arithmetic
+Create a C++ program to find the nth Fibonacci number.,Medium,Arithmetic
+Write a C++ program to calculate the greatest common divisor (GCD) of two numbers using Euclidean algorithm.,Medium,Arithmetic
+Create a C++ program to calculate the least common multiple (LCM) of two numbers.,Medium,Arithmetic
+Write a C++ program to check if a number is a perfect number.,Medium,Arithmetic
+Create a C++ program to calculate the sum of all proper divisors of a number.,Medium,Arithmetic
+Write a C++ program to find the roots of a quadratic equation.,Medium,Arithmetic
+Create a C++ program to calculate the sum of the series: 1 + 1/2 + 1/3 + ... + 1/n.,Medium,Arithmetic
+Write a C++ program to check if a number is an Armstrong number.,Medium,Arithmetic
+Create a C++ program to find the prime factors of a number.,Medium,Arithmetic
+Write a C++ program to calculate the area of a triangle given its three sides.,Medium,Arithmetic
+Create a C++ program to calculate the area of a parallelogram given its base and height.,Medium,Arithmetic
+Write a C++ program to calculate the area of a trapezoid given its bases and height.,Medium,Arithmetic
+Create a C++ program to calculate the area of a rhombus given its diagonals.,Medium,Arithmetic
+Write a C++ program to check if a year is a leap year.,Medium,Arithmetic
+Create a C++ program to convert a decimal number to binary.,Medium,Arithmetic
+Write a C++ program to convert a binary number to decimal.,Medium,Arithmetic
+Create a C++ program to convert a decimal number to octal.,Medium,Arithmetic
+Write a C++ program to convert an octal number to decimal.,Medium,Arithmetic
+Create a C++ program to convert a decimal number to hexadecimal.,Medium,Arithmetic
+Write a C++ program to convert a hexadecimal number to decimal.,Medium,Arithmetic
+Create a C++ program to convert a binary number to octal.,Medium,Arithmetic
+Write a C++ program to convert an octal number to binary.,Medium,Arithmetic
+Create a C++ program to convert a binary number to hexadecimal.,Medium,Arithmetic
+Write a C++ program to convert a hexadecimal number to binary.,Medium,Arithmetic
+Create a C++ program to perform addition of two large numbers.,Medium,Arithmetic
+Write a C++ program to perform subtraction of two large numbers.,Medium,Arithmetic
+Create a C++ program to perform multiplication of two large numbers.,Medium,Arithmetic
+Write a C++ program to perform division of two large numbers.,Medium,Arithmetic
+Create a C++ program to perform exponentiation of a number.,Medium,Arithmetic
+Write a C++ program to calculate the value of nCr (combination).,Hard,Arithmetic
+Create a C++ program to calculate the value of nPr (permutation).,Hard,Arithmetic
+Write a C++ program to calculate the number of trailing zeroes in factorial of a number.,Hard,Arithmetic
+Create a C++ program to find the next higher number with the same number of set bits.,Hard,Arithmetic
+Write a C++ program to find the smallest number with given number of digits and sum of digits.,Hard,Arithmetic
+Create a C++ program to find the smallest multiple of a given number consisting of digits 0 and 1 only.,Hard,Arithmetic
+Write a C++ program to find the last non-zero digit of factorial of a number.,Hard,Arithmetic
+Create a C++ program to calculate the digital root of a number.,Hard,Arithmetic
+Write a C++ program to find the sum of cubes of first n natural numbers.,Hard,Arithmetic
+Create a C++ program to find the smallest cube whose sum of digits is a cube.,Hard,Arithmetic
+Write a C++ program to find the smallest number whose digits multiply to a given number n.,Hard,Arithmetic
+Create a C++ program to find the largest number smaller than n with same set of digits.,Hard,Arithmetic
+Write a C++ program to find the smallest number greater than n with same set of digits.,Hard,Arithmetic
+Create a C++ program to check if a number can be expressed as sum of two abundant numbers.,Hard,Arithmetic
+Write a C++ program to find the number of perfect squares between two given numbers.,Hard,Arithmetic
+Create a C++ program to find the nth term of the look-and-say sequence.,Hard,Arithmetic
+Write a C++ program to find the nth ugly number.,Hard,Arithmetic
+Create a C++ program to find the n-th element of the Fibonacci word.,Hard,Arithmetic
+Write a C++ program to check if a given number is a Carmichael number.,Hard,Arithmetic
+Create a C++ program to find the nth term of the Padovan sequence.,Hard,Arithmetic
+Write a C++ program to find the smallest number divisible by first n numbers.,Hard,Arithmetic
+Create a C++ program to find the smallest multiple of a given number which consists of digits 0 and 1 only.,Hard,Arithmetic
+Write a C++ program to find the sum of the first n terms of the given series: 1/1! + 2/2! + 3/3! + ...,Hard,Arithmetic
+Create a C++ program to find the sum of the first n terms of the given series: 1/1^2 + 1/2^2 + 1/3^2 + ...,Hard,Arithmetic
+Write a C++ program to find the number of trailing zeroes in factorial of a number in base b.,Hard,Arithmetic
+Create a C++ program to find the sum of the digits of n^k.,Hard,Arithmetic
+Write a C++ program to find the nth power of an integer in base b representation.,Hard,Arithmetic
+Create a C++ program to find the sum of first n terms of the series: 1/1 + 1/3 + 1/5 + ...,Hard,Arithmetic
+Write a C++ program to find the smallest number whose factorial contains at least n trailing zeroes.,Hard,Arithmetic
+Create a C++ program to find the nth Harmonic number.,Hard,Arithmetic
+Write a C++ program to find the nth term of the given series: 1 + 1/3 + 1/5 + ...,Hard,Arithmetic

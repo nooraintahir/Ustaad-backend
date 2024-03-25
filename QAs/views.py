@@ -3,18 +3,32 @@ import requests
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import viewsets
-from .models import Exercise, User
-from .serializer import ExerciseSerializer
+from .models import  User, Question, Add_Question, UserQuestion
 from rest_framework.response import Response
 import g4f
 from rest_framework import status
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
-messages = []
-# Create your views here.
+import csv
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.decorators import login_required
+from django.middleware.csrf import get_token
 
+messages = []
+
+class get_csrf_token(APIView):
+    def get(self,request):
+        response = Response({"message": "Set CSRF cookie"})
+        response["X-CSRFToken"] = get_token(request)
+        return response
+
+# Create your views here.
+class Home(APIView):
+    def get(self, request):
+        current_user = request.user
+        return JsonResponse({'username': current_user.username})
 
 class Login(APIView):
     def post(self, request):
@@ -27,14 +41,29 @@ class Login(APIView):
         if user is not None:
             # If authentication succeeds, log in the user
             login(request, user)
+            with open('.\\QAs\\questions.csv', newline='', encoding='utf-8') as csvfile:
+    
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    question_text = row['Question']
+                    difficulty = row['Difficulty']
+                    topic = row['Topic']
+                    
+                    # Create the question
+                    question = Question.objects.create(question_text=question_text, difficulty=difficulty, topic=topic)
+
+                    # Associate the question with the user
+                    UserQuestion.objects.create(user_username=username, question=question)
             return JsonResponse({"message": "Login successful"})
         else:
             # If authentication fails, return error response
             return JsonResponse({"error": "Invalid username or password"}, status=status.HTTP_400_BAD_REQUEST)
 
 
+
 class Signup(APIView):
     def post(self, request):
+        # Extract user information from request
         username = request.data.get('username')
         password = request.data.get('password')
         email = request.data.get('email')
@@ -51,39 +80,23 @@ class Signup(APIView):
 
         # Create the user
         user = User.objects.create_user(username=username, password=password, email=email, first_name=first_name, last_name=last_name)
+        
         if user:
+            #from . import QuestionGeneratorv3 as qg #generates the questions for the user
+            #qg.generate_questions_and_save()
+            
+            
             return Response({"message": "Signup successful"}, status=status.HTTP_201_CREATED)
         else:
             return Response({"error": "Failed to create user"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
-
-class ExView(APIView):
-    def get(self, request):
-        output = [{"title": output.title, 
-                   "difficulty_level": output.difficulty_level,
-                   "question": output.question,
-                   "answers": output.answers}
-                   for output in Exercise.objects.all()]
-        return Response(output)
-    
-
-    def post(self, request):
-        serializer = ExerciseSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
+            
         
-
-'''
-class ExView(viewsets.ModelViewSet):
-    serializer_class = ExerciseSerializer
-    queryset = Exercise.objects.all()
-    '''
 
 class CompileCPlusPlus(APIView):
     def post(self, request):
-        client_secret = '0c4dfc1b49c97871aab1e4576bb9901ebd1171f6'  # Replace with your actual client secret
+        client_id = 'e975a23923ba03db7f1393446ff58e9'  # Replace with your actual client ID
+        client_secret = '3aff6c0d2cc26ec6d5f8c0d04c31475a1590f5ac5fa32965bac13b38237ccc75'  # Replace with your actual client secret
 
         # Check if 'code' is provided in the request data
         code = request.data.get('code')
@@ -94,25 +107,18 @@ class CompileCPlusPlus(APIView):
             )
 
         # Define the API endpoint
-        api_endpoint = 'https://api.hackerearth.com/v4/partner/code-evaluation/submissions/'
+        api_endpoint = 'https://api.jdoodle.com/v1/execute'
 
         # Prepare the request data
         data = {
-            'lang': 'CPP17',  # Set the language to C++
-            'source': code,
-            'time_limit': 5,  # Set the execution time limit (in seconds)
-            'memory_limit': 262144,  # Set the memory limit (in KB)
-            'callback': 'http://127.0.0.1:8000/compiler'  # Replace with your callback URL
+            'clientId': client_id,
+            'clientSecret': client_secret,
+            'script': code,
+            'language': 'cpp17',
         }
 
-        # Set the required headers
-        headers = {
-            'client-secret': client_secret,
-            'content-type': 'application/json'
-        }
-
-        # Send the POST request to HackerEarth API
-        response = requests.post(api_endpoint, json=data, headers=headers)
+        # Send the POST request to Jdoodle API
+        response = requests.post(api_endpoint, json=data)
 
         # Check the response status
         if response.status_code == status.HTTP_200_OK:
@@ -160,7 +166,6 @@ class ChatView(APIView):
         )
 
         return response
-
 class SmartCompiler(APIView):
     def get(self, request):
         # You can return initial data or instructions for the chat here
@@ -196,3 +201,59 @@ class SmartCompiler(APIView):
 
         return response
 
+class SendQuestion(APIView):
+    def post(self, request, *args, **kwargs):
+        name = request.data.get('name')
+        email = request.data.get('email')
+        question = request.data.get('question')
+        difficulty = request.data.get('difficulty')
+        topic = request.data.get('topic')
+
+        # Check if all required fields are provided
+        if not all([name, email, question, difficulty, topic]):
+            return Response({'error': 'All fields are required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            # Create and save the question object
+            Add_Question.objects.create(
+                name=name,
+                email=email,
+                question_difficulty=difficulty,
+                question_text=question,
+                question_topic=topic
+            )
+            return Response({'message': 'Question sent successfully'}, status=status.HTTP_200_OK)
+        except Exception as e:
+            # Handle any exceptions and return appropriate response
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+class UserQuestionsDisplay(APIView):
+    #permission_classes = [IsAuthenticated]  # Ensure user is authenticated
+
+    def post(self,request):
+        # Get the current user
+        current_user = request.user
+
+        # Retrieve the first user question of the specified topic and difficulty with a false score
+        try:
+            user_question = UserQuestion.objects.filter(
+                user_username=current_user.username, 
+                question__topic=request.data.get("topic"), 
+                question__difficulty=request.data.get("difficulty"),
+                score=False
+            ).first()
+            print("currentuser")
+            print(current_user.username)
+
+            # If a user question is found, serialize its data
+            if user_question:
+
+                # Return response
+                response_data = {
+                    'user_question': user_question.question.question_text
+                }
+                return JsonResponse(response_data)
+            else:
+                return JsonResponse({'message': 'No matching question found for the current user, topic, and difficulty'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)

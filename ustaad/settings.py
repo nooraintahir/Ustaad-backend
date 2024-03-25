@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 REST_FRAMEWORK = {'DEFAULT_PERMISSION_CLASSES':[
     'rest_framework.permissions.AllowAny'
 ]}
@@ -62,8 +63,11 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Allow cookies to be included in CORS requests (for authentication)
 CORS_ALLOW_CREDENTIALS = True
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
+SESSION_COOKIE_AGE = 3600
 
 CORS_ORIGIN_ALLOW_ALL = True
 

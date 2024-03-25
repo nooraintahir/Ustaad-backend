@@ -1,21 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
 
-# Create your models here.
-class Exercise(models.Model):
-    DIFFICULTY_CHOICES = (
-        ('Easy', 'Easy'),
-        ('Medium', 'Medium'),
-        ('Hard', 'Hard'),
-    )
-
-    title = models.CharField(max_length=50)
-    difficulty_level = models.CharField(max_length=50, choices=DIFFICULTY_CHOICES)
-    question = models.CharField(max_length=500)
-    answers = models.CharField(max_length=1000)
-
-    def __str__(self):
-        return self.title 
 
 class User(AbstractUser):
     first_name = models.CharField(max_length=50)
@@ -37,15 +23,16 @@ class Question(models.Model):
         return self.question_text
 
 class UserQuestion(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user_username = models.CharField(max_length=150, default="none")  # Assuming maximum username length is 150 characters
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     score = models.BooleanField(default=False)  # True for cleared, False for not cleared
-
+    times_attempted = models.IntegerField(default=0)
+    date_attempted = models.DateTimeField(default=timezone.now)
     class Meta:
-        unique_together = ['user', 'question']  # Ensures each user has only one instance of each question
+        unique_together = ['user_username', 'question']
 
     def __str__(self):
-        return f"{self.user.username} - {self.question.question_text}"
+        return f"{self.user_username} - {self.question.question_text}"
 
 class Add_Question(models.Model):
     email = models.EmailField()
@@ -56,3 +43,4 @@ class Add_Question(models.Model):
 
     def __str__(self):
         return self.question_text
+    
