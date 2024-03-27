@@ -44,3 +44,23 @@ class Add_Question(models.Model):
     def __str__(self):
         return self.question_text
     
+class LessonPlan(models.Model):
+    topic = models.CharField(max_length=100)
+    difficulty = models.CharField(max_length=10)
+    questions_to_attempt = models.IntegerField(default=0)
+    questions_attempted = models.IntegerField(default=0)
+    username = models.CharField(max_length=150, default="none")  # Assuming maximum username length is 150 characters
+    date_created = models.DateTimeField(default=timezone.now)
+    completed = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.topic
+    
+class Previous_LessonPlan(models.Model):
+    timestamp = models.DateTimeField()
+    topic = models.CharField(max_length=100)
+    questions_present = models.TextField()
+    username = models.CharField(max_length=150, default="none")
+
+    def __str__(self):
+        return f"Question - Topic: {self.topic}, Timestamp: {self.timestamp}"

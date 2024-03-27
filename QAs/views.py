@@ -20,12 +20,6 @@ from django.middleware.csrf import get_token
 
 messages = []
 
-class get_csrf_token(APIView):
-    def get(self,request):
-        response = Response({"message": "Set CSRF cookie"})
-        response["X-CSRFToken"] = get_token(request)
-        return response
-
 # Create your views here.
 class Home(APIView):
     def get(self, request):
@@ -344,81 +338,4 @@ class UpdateScore(APIView):
         except Exception as e:
             return Response({"error": str(e)}, status=500)
 
-    # def calculate_attempted_counts(self, current_user):
-    #     # List of all topics
-    #     topics = ['variables', 'loops', 'arrays', 'other1', 'other2', 'other3']
-
-    #     # List of all difficulty levels
-    #     difficulties = ['easy', 'medium', 'hard']
-
-    #     # Dictionary to store attempted counts for each topic and difficulty
-    #     attempted_counts_by_topic_and_difficulty = defaultdict(dict)
-
-    #     # Loop through each topic
-    #     for topic in topics:
-    #         # Initialize a dictionary to store attempted counts for each difficulty level
-    #         attempted_counts_by_difficulty = {}
-
-    #         # Loop through each difficulty level
-    #         for difficulty in difficulties:
-    #             # Count the number of questions attempted for each topic and difficulty
-    #             attempted_count = UserQuestion.objects.filter(
-    #                 user_username=current_user.username,
-    #                 question__topic=topic,
-    #                 question__difficulty=difficulty,
-    #                 score=True
-    #             ).count()
-
-    #             # Store the count in the dictionary
-    #             attempted_counts_by_difficulty[difficulty] = attempted_count
-    #             print(f"Attempted counts for topic '{topic}': {attempted_counts_by_difficulty}")
-
-    #         # Store the attempted counts for the topic in the main dictionary
-    #         attempted_counts_by_topic_and_difficulty[topic] = attempted_counts_by_difficulty
-    #         print("Attempted counts by topic and difficulty:", attempted_counts_by_topic_and_difficulty)
-
-    #     # Return the attempted counts dictionary
-    #     return attempted_counts_by_topic_and_difficulty
-        
-
-# def calculate_attempted_counts(request):
-#     # List of all topics
-#     topics = ['Variables', 'Arithmetic Operations', 'Functions', 'If-else Statements', 'Loops', 'Arrays']
-
-#     # List of all difficulty levels
-#     difficulties = ['Easy', 'Medium', 'Hard']
-
-#     # Dictionary to store attempted counts for each topic and difficulty
-#     attempted_counts_by_topic_and_difficulty = {}
-
-#     # Get the current authenticated user
-#     current_user = request.user
-
-#     # Loop through each topic
-#     for topic in topics:
-#         # Initialize a dictionary to store attempted counts for each difficulty level
-#         attempted_counts_by_difficulty = {}
-
-#         # Loop through each difficulty level
-#         for difficulty in difficulties:
-#             # Count the number of questions attempted for each topic and difficulty
-#             attempted_count = UserQuestion.objects.filter(
-#                 user_username=current_user.username,
-#                 question__topic=topic,
-#                 question__difficulty=difficulty,
-#                 score=True
-#             ).count()
-
-#             # Store the count in the dictionary
-#             attempted_counts_by_difficulty[difficulty] = attempted_count
-
-#               # Print the attempted counts for the current topic
-#             print(f"Attempted counts for topic '{topic}': {attempted_counts_by_difficulty}")
-
-#         # Store the attempted counts for the topic in the main dictionary
-#         attempted_counts_by_topic_and_difficulty[topic] = attempted_counts_by_difficulty
-
-#         print("Attempted counts by topic and difficulty:", attempted_counts_by_topic_and_difficulty)
-
-#     # Return the attempted counts as a JSON response
-#     return JsonResponse(attempted_counts_by_topic_and_difficulty)
+    
