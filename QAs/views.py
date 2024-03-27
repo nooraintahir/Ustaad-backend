@@ -20,6 +20,13 @@ from django.middleware.csrf import get_token
 
 messages = []
 
+
+# from . import LessonPlanGenerator as lpg
+# lessonplan = lpg.generate_initial_lesson_plan()
+
+# lessonplan = lpg.generate_updated_lesson_plan()
+
+
 # Create your views here.
 class Home(APIView):
     def get(self, request):

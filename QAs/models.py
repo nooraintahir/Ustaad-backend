@@ -51,7 +51,7 @@ class LessonPlan(models.Model):
     questions_attempted = models.IntegerField(default=0)
     username = models.CharField(max_length=150, default="none")  # Assuming maximum username length is 150 characters
     date_created = models.DateTimeField(default=timezone.now)
-    completed = models.IntegerField(default=0)
+    completed = models.IntegerField(default=0) #`0` for `False` and `1` for `True`
 
     def __str__(self):
         return self.topic
@@ -64,3 +64,7 @@ class Previous_LessonPlan(models.Model):
 
     def __str__(self):
         return f"Question - Topic: {self.topic}, Timestamp: {self.timestamp}"
+    
+class experience(models.Model):
+    experience_level = models.IntegerField(default=0)
+    preferred_frequency =models.IntegerField(default=0)
