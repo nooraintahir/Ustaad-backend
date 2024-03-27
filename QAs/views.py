@@ -1,7 +1,9 @@
 from rest_framework import status
+from collections import defaultdict
 import requests
 from django.shortcuts import render
 from rest_framework.views import APIView
+import json
 from rest_framework import viewsets
 from .models import  User, Question, Add_Question, UserQuestion
 from rest_framework.response import Response
@@ -28,8 +30,9 @@ class get_csrf_token(APIView):
 class Home(APIView):
     def get(self, request):
         current_user = request.user
+        
         return JsonResponse({'username': current_user.username})
-
+    
 class Login(APIView):
     def post(self, request):
         username = request.data.get('username')
@@ -41,23 +44,82 @@ class Login(APIView):
         if user is not None:
             # If authentication succeeds, log in the user
             login(request, user)
-            with open('.\\QAs\\questions.csv', newline='', encoding='utf-8') as csvfile:
+            # with open('.\\QAs\\questions.csv', newline='', encoding='utf-8') as csvfile:
     
-                reader = csv.DictReader(csvfile)
-                for row in reader:
-                    question_text = row['Question']
-                    difficulty = row['Difficulty']
-                    topic = row['Topic']
+            #     reader = csv.DictReader(csvfile)
+            #     for row in reader:
+            #         question_text = row['Question']
+            #         difficulty = row['Difficulty']
+            #         topic = row['Topic']
+            #         score = row['Score']
                     
-                    # Create the question
-                    question = Question.objects.create(question_text=question_text, difficulty=difficulty, topic=topic)
 
-                    # Associate the question with the user
-                    UserQuestion.objects.create(user_username=username, question=question)
-            return JsonResponse({"message": "Login successful"})
+            #         # Create the question
+            #         question = Question.objects.create(question_text=question_text, difficulty=difficulty, topic=topic)
+
+            #         # Associate the question with the user
+            #         UserQuestion.objects.create(user_username=username, question=question, score=score)
+            attempted_counts_by_topic_and_difficulty = self.calculate_attempted_counts(request.user)
+            attempted_counts_json = json.dumps(attempted_counts_by_topic_and_difficulty)
+            #variables_data = attempted_counts_by_topic_and_difficulty.get('Variables', {})
+                    
+            print("Attempted counts by topic and difficulty:", attempted_counts_by_topic_and_difficulty)
+            #return JsonResponse({"message": "Login successful"})
+            #return JsonResponse({"Variables": variables_data})
+            return JsonResponse({"attempted_counts": attempted_counts_json})
         else:
             # If authentication fails, return error response
             return JsonResponse({"error": "Invalid username or password"}, status=status.HTTP_400_BAD_REQUEST)
+
+    
+    def calculate_attempted_counts(self, current_user):
+        # List of all topics
+        topics = ['Variables', 'Arithmetic', 'Functions', 'If-else', 'Loops', 'Arrays']
+
+        # List of all difficulty levels
+        difficulties = ['Easy', 'Medium', 'Hard']
+
+        # Dictionary to store attempted counts for each topic and difficulty
+        attempted_counts_by_topic_and_difficulty = defaultdict(dict)
+
+        
+        
+        print(f"User: {current_user.username}")
+        
+        #Loop through each topic
+        for topic in topics:
+            # Initialize a dictionary to store attempted counts for each difficulty level
+            attempted_counts_by_difficulty = {}
+
+            # Loop through each difficulty level
+            for difficulty in difficulties:
+                # Count the number of questions attempted for each topic and difficulty
+                attempted_count = UserQuestion.objects.filter(
+                    user_username=current_user.username,
+                    question__topic=topic,
+                    question__difficulty=difficulty,
+
+                    score=True
+                ).count()
+
+                # Store the count in the dictionary
+
+                print(f"Topic: {topic}, Difficulty: {difficulty}")
+                
+
+
+                attempted_counts_by_difficulty[difficulty] = attempted_count
+                
+                print(f"Attempted counts for topic '{topic}': {attempted_counts_by_difficulty}")
+
+            # Store the attempted counts for the topic in the main dictionary
+            attempted_counts_by_topic_and_difficulty[topic] = attempted_counts_by_difficulty
+            
+            #print("Attempted counts by topic and difficulty:", attempted_counts_by_topic_and_difficulty)
+       
+        
+        # Return the attempted counts dictionary
+        return attempted_counts_by_topic_and_difficulty
 
 
 
@@ -257,3 +319,106 @@ class UserQuestionsDisplay(APIView):
                 return JsonResponse({'message': 'No matching question found for the current user, topic, and difficulty'}, status=404)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
+        
+
+
+
+class UpdateScore(APIView):
+    def post(self, request):
+        question_id = request.data.get('questionId')
+        try:
+            # Retrieve the UserQuestion object and update the score field
+            user_question = UserQuestion.objects.get(pk=question_id)
+            user_question.score = True
+            user_question.save()
+
+            # Calculate attempted counts for each topic and difficulty
+            #attempted_counts_by_topic_and_difficulty = self.calculate_attempted_counts(request.user)
+
+            return Response({
+                "message": "Score updated successfully.",
+               # "attempted_counts": attempted_counts_by_topic_and_difficulty
+            })
+        except UserQuestion.DoesNotExist:
+            return Response({"error": "Question does not exist."}, status=404)
+        except Exception as e:
+            return Response({"error": str(e)}, status=500)
+
+    # def calculate_attempted_counts(self, current_user):
+    #     # List of all topics
+    #     topics = ['variables', 'loops', 'arrays', 'other1', 'other2', 'other3']
+
+    #     # List of all difficulty levels
+    #     difficulties = ['easy', 'medium', 'hard']
+
+    #     # Dictionary to store attempted counts for each topic and difficulty
+    #     attempted_counts_by_topic_and_difficulty = defaultdict(dict)
+
+    #     # Loop through each topic
+    #     for topic in topics:
+    #         # Initialize a dictionary to store attempted counts for each difficulty level
+    #         attempted_counts_by_difficulty = {}
+
+    #         # Loop through each difficulty level
+    #         for difficulty in difficulties:
+    #             # Count the number of questions attempted for each topic and difficulty
+    #             attempted_count = UserQuestion.objects.filter(
+    #                 user_username=current_user.username,
+    #                 question__topic=topic,
+    #                 question__difficulty=difficulty,
+    #                 score=True
+    #             ).count()
+
+    #             # Store the count in the dictionary
+    #             attempted_counts_by_difficulty[difficulty] = attempted_count
+    #             print(f"Attempted counts for topic '{topic}': {attempted_counts_by_difficulty}")
+
+    #         # Store the attempted counts for the topic in the main dictionary
+    #         attempted_counts_by_topic_and_difficulty[topic] = attempted_counts_by_difficulty
+    #         print("Attempted counts by topic and difficulty:", attempted_counts_by_topic_and_difficulty)
+
+    #     # Return the attempted counts dictionary
+    #     return attempted_counts_by_topic_and_difficulty
+        
+
+# def calculate_attempted_counts(request):
+#     # List of all topics
+#     topics = ['Variables', 'Arithmetic Operations', 'Functions', 'If-else Statements', 'Loops', 'Arrays']
+
+#     # List of all difficulty levels
+#     difficulties = ['Easy', 'Medium', 'Hard']
+
+#     # Dictionary to store attempted counts for each topic and difficulty
+#     attempted_counts_by_topic_and_difficulty = {}
+
+#     # Get the current authenticated user
+#     current_user = request.user
+
+#     # Loop through each topic
+#     for topic in topics:
+#         # Initialize a dictionary to store attempted counts for each difficulty level
+#         attempted_counts_by_difficulty = {}
+
+#         # Loop through each difficulty level
+#         for difficulty in difficulties:
+#             # Count the number of questions attempted for each topic and difficulty
+#             attempted_count = UserQuestion.objects.filter(
+#                 user_username=current_user.username,
+#                 question__topic=topic,
+#                 question__difficulty=difficulty,
+#                 score=True
+#             ).count()
+
+#             # Store the count in the dictionary
+#             attempted_counts_by_difficulty[difficulty] = attempted_count
+
+#               # Print the attempted counts for the current topic
+#             print(f"Attempted counts for topic '{topic}': {attempted_counts_by_difficulty}")
+
+#         # Store the attempted counts for the topic in the main dictionary
+#         attempted_counts_by_topic_and_difficulty[topic] = attempted_counts_by_difficulty
+
+#         print("Attempted counts by topic and difficulty:", attempted_counts_by_topic_and_difficulty)
+
+#     # Return the attempted counts as a JSON response
+#     return JsonResponse(attempted_counts_by_topic_and_difficulty)
