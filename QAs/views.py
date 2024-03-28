@@ -1,11 +1,14 @@
 from rest_framework import status
 from collections import defaultdict
 import requests
+
 from django.shortcuts import render
 from rest_framework.views import APIView
+from datetime import date
+from datetime import datetime
 import json
 from rest_framework import viewsets
-from .models import  User, Question, Add_Question, UserQuestion
+from .models import  User, Question, Add_Question, UserQuestion , experience , Previous_LessonPlan , LessonPlan
 from rest_framework.response import Response
 import g4f
 from rest_framework import status
@@ -13,6 +16,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
+from . import LessonPlanner as lp
 import csv
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.decorators import login_required
@@ -20,8 +24,11 @@ from django.middleware.csrf import get_token
 
 messages = []
 
+today_date = date.today()
+experience_level = 0
+frequency = 0
 
-# from . import LessonPlanGenerator as lpg
+
 # lessonplan = lpg.generate_initial_lesson_plan()
 
 # lessonplan = lpg.generate_updated_lesson_plan()
@@ -132,6 +139,8 @@ class Signup(APIView):
         email = request.data.get('email')
         first_name = request.data.get('first_name')
         last_name = request.data.get('last_name')
+        
+        
 
         # Check if all required fields are provided
         if not (username and password and email and first_name and last_name):
@@ -344,5 +353,128 @@ class UpdateScore(APIView):
             return Response({"error": "Question does not exist."}, status=404)
         except Exception as e:
             return Response({"error": str(e)}, status=500)
+        
+class Preferences(APIView):
+    def post(self, request):
+        current_user = request.user
+        experience_level = request.data.get('experienceLevel') # Convert to int
+        frequency = request.data.get('frequency')
+
+        # experience_instance, created = experience.objects.get_or_create(username="hassan")
+
+        # # Update the fields if the instance is not created newly
+        # if not created:
+        #     experience_instance.experience_level = experience_level
+        #     experience_instance.preferred_frequency = frequency
+        #     experience_instance.save()
+
+        
+
+
+        experience_instance = experience.objects.create(
+        username="hassang",
+        experience_level=experience_level,
+        preferred_frequency=frequency
+        )
+
+        print("experience" , experience_instance)
+
+        # lesson_plan_data = lp.generate_initial_lesson_plan(experience_level, frequency)
+
+        # print(lesson_plan_data)
+
+        # date_only, topic, difficulty, questions_to_attempt, questions_attempted = self.parse_lesson_plan_data(lesson_plan_data)
+
+        # #self.save_to_database(current_user.username , date_only, topic, difficulty, questions_attempted, questions_to_attempt, lesson_plan_data)
+
+        # print("Date Only:", date_only)
+        # print("Topic:", topic)
+        # print("Difficulty:", difficulty)
+        # print("Questions to Attempt:", questions_to_attempt)
+        # print("Questions Attempted:", questions_attempted)
+
+        # lesson_plan_instance, previous_lesson_plan_instance = self.save_to_database(current_user.username , date_only, topic, difficulty, questions_attempted, questions_to_attempt, lesson_plan_data)
+
+        # print("Lesson Plan Instance:", lesson_plan_instance)
+        # print("Previous Lesson Plan Instance:", previous_lesson_plan_instance)
+
+    #     if date_only == today_date:
+    #         lesson_plan_info = {
+    #         "Date Only": date_only,
+    #         "Topic": topic,
+    #         "Difficulty": difficulty,
+    #         "Questions to Attempt": questions_to_attempt,
+    #         "Questions Attempted": questions_attempted
+    # }
+
+        return JsonResponse("Successful", status=status.HTTP_200_OK)
+    
+
+    def save_to_database(self, username, date_only, topic, difficulty, questions_attempted, questions_to_attempt, lesson_plan_data):
+    # Parse lesson_plan_data
+        
+        
+
+        previous_lesson_plan_instance = Previous_LessonPlan.objects.create(
+            timestamp=date_only,
+            topic=topic,
+            questions_present=lesson_plan_data,
+            username=username  # You may need to specify the username
+        )
+    # Create and save LessonPlan instance
+        lesson_plan_instance = LessonPlan.objects.create(
+            topic=topic,
+            difficulty=difficulty,
+            questions_to_attempt=questions_to_attempt,
+            questions_attempted=questions_attempted,
+            username= username,  # You may need to specify the username
+            date_created=date_only,  # Assuming the timestamp is the creation date
+            completed=0  # Assuming the lesson plan is not completed initially
+        )
+
+        # Create and save Previous_LessonPlan instance
+        
+
+        return lesson_plan_instance, previous_lesson_plan_instance
+
+
+    def parse_lesson_plan_data(self, lesson_plan_data):
+        # Extract relevant information from the dictionary
+
+        try:
+            timestamp_str = lesson_plan_data['Timestamp']
+            topic = lesson_plan_data['Topic']
+            questions_present_list = lesson_plan_data['Questions present']
+
+     # Split the extracted strings and extract further information
+            timestamp = datetime.strptime(timestamp_str, '%Y-%m-%d %H:%M:%S')
+            date_only = timestamp.date()  # Extract date only from the timestamp
+
+            questions_to_attempt = 0
+            questions_attempted = 0
+            difficulty = None
+
+        # Loop through each entry in the questions_present_list
+            for entry in questions_present_list:
+            # Split the entry into difficulty and completion status
+                difficulty, completion_status = entry.split(': ')
+            # Extract the number of attempted and to-attempt questions
+                attempted, to_attempt = map(int, completion_status.split('/'))
+                questions_to_attempt += to_attempt
+                questions_attempted += attempted
+
+        except KeyError as e:
+            raise ValueError(f"Missing key in lesson plan data: {e}")
+
+        except IndexError:
+            raise ValueError("Invalid format for questions present information")
+
+        except Exception as e:
+            raise ValueError(f"Error parsing lesson plan data: {e}")
+
+        return date_only, topic, difficulty, questions_to_attempt, questions_attempted
+        
+        
+
 
     

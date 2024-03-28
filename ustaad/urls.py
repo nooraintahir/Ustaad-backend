@@ -8,7 +8,7 @@
 
 
 from django.urls import path
-from QAs.views import SendQuestion, CompileCPlusPlus, ChatView, SmartCompiler, Login, Signup, UserQuestionsDisplay, Home , UpdateScore
+from QAs.views import SendQuestion, CompileCPlusPlus, ChatView, SmartCompiler, Login, Signup, UserQuestionsDisplay, Home , UpdateScore, Preferences
 
 urlpatterns = [
     path('', Home.as_view(), name='index'),
@@ -20,6 +20,7 @@ urlpatterns = [
     path('sendquestion', SendQuestion.as_view(), name='sendquestion'),
     path('userquestions', UserQuestionsDisplay.as_view(), name='userquestions'),
     path('update-score', UpdateScore.as_view(), name='update-score'),
+    path('preferences', Preferences.as_view(), name='preferences'),
 
 
 ]

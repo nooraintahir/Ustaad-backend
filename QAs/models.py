@@ -65,6 +65,7 @@ class Previous_LessonPlan(models.Model):
     def __str__(self):
         return f"Question - Topic: {self.topic}, Timestamp: {self.timestamp}"
     
-class experience(models.Model):
-    experience_level = models.IntegerField(default=0)
-    preferred_frequency =models.IntegerField(default=0)
+class experience(models.Model):   
+    username = models.CharField(max_length=150, default="none")
+    experience_level = models.IntegerField(default='Easy')
+    preferred_frequency =models.IntegerField()
