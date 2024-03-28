@@ -20,7 +20,7 @@ import csv
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.decorators import login_required
 from django.middleware.csrf import get_token
-from . import LessonPlanner as lp
+
 
 messages = []
 
@@ -141,10 +141,10 @@ class Signup(APIView):
         user = User.objects.create_user(username=username, password=password, email=email, first_name=first_name, last_name=last_name)
         
         if user:
-            # Function to run in a separate thread
+            #Function to run in a separate thread
             def run_background_task():
-                from . import QuestionGeneratorv3 as qg
-                qg.generate_questions_and_save()
+                # from . import QuestionGeneratorv3 as qg
+                # qg.generate_questions_and_save()
                 with open('.\\QAs\\questions.csv', newline='', encoding='utf-8') as csvfile:
                     reader = csv.DictReader(csvfile)
                     for row in reader:
@@ -371,11 +371,11 @@ class Preferences(APIView):
             preferred_frequency=preferred_frequency
         )
 
-            
+        from . import LessonPlanner as lp
         lesson_plan_data = lp.generate_initial_lesson_plan(experience_level, preferred_frequency)
 
         print(lesson_plan_data)
-        date_only, topic, difficulty, questions_to_attempt, questions_attempted = self.parse_lesson_plan_data(lesson_plan_data)
+        date_only, topic, difficulty, questions_to_attempt, questions_attempted, questions_present = self.parse_lesson_plan_data(lesson_plan_data)
 
         #self.save_to_database(current_user.username , date_only, topic, difficulty, questions_attempted, questions_to_attempt, lesson_plan_data)
 
@@ -384,8 +384,9 @@ class Preferences(APIView):
         print("Difficulty:", difficulty)
         print("Questions to Attempt:", questions_to_attempt)
         print("Questions Attempted:", questions_attempted)
+        print("Questions Present:", questions_present)
 
-        lesson_plan_instance, previous_lesson_plan_instance = self.save_to_database(username , date_only, topic, difficulty, questions_attempted, questions_to_attempt, lesson_plan_data)
+        lesson_plan_instance, previous_lesson_plan_instance = self.save_to_database(username , date_only, topic, difficulty, questions_attempted, questions_to_attempt, questions_present)
 
         print("Lesson Plan Instance:", lesson_plan_instance)
         print("Previous Lesson Plan Instance:", previous_lesson_plan_instance)
@@ -402,13 +403,13 @@ class Preferences(APIView):
         return JsonResponse({"message": "Preferences saved successfully"})
     
 
-    def save_to_database(self, username, date_only, topic, difficulty, questions_attempted, questions_to_attempt, lesson_plan_data):
+    def save_to_database(self, username, date_only, topic, difficulty, questions_attempted, questions_to_attempt, questions_present):
     # Parse lesson_plan_data
 
         previous_lesson_plan_instance = Previous_LessonPlan.objects.create(
             timestamp=date_only,
             topic=topic,
-            questions_present=lesson_plan_data,
+            questions_present=questions_present,
             username=username  # You may need to specify the username
         )
     # Create and save LessonPlan instance
@@ -418,7 +419,7 @@ class Preferences(APIView):
             questions_to_attempt=questions_to_attempt,
             questions_attempted=questions_attempted,
             username= username,  # You may need to specify the username
-            date_created=date_only,  # Assuming the timestamp is the creation date
+            date_created=date_only,              # Assuming the timestamp is the creation date
             completed=0  # Assuming the lesson plan is not completed initially
         )
 
@@ -447,11 +448,13 @@ class Preferences(APIView):
         # Loop through each entry in the questions_present_list
             for entry in questions_present_list:
             # Split the entry into difficulty and completion status
-                difficulty, completion_status = entry.split(': ')
-            # Extract the number of attempted and to-attempt questions
-                attempted, to_attempt = map(int, completion_status.split('/'))
-                questions_to_attempt += to_attempt
-                questions_attempted += attempted
+                split_entry = entry.split(': ')
+                if len(split_entry) == 2:  # Ensure the entry has both difficulty and completion status
+                    difficulty = split_entry[0]  # Extract the difficulty
+                    attempted, to_attempt = map(int, split_entry[1].split('/'))
+                    questions_to_attempt += to_attempt
+                    questions_attempted += attempted
+                break
 
         except KeyError as e:
             raise ValueError(f"Missing key in lesson plan data: {e}")
@@ -462,17 +465,24 @@ class Preferences(APIView):
         except Exception as e:
             raise ValueError(f"Error parsing lesson plan data: {e}")
 
-        return date_only, topic, difficulty, questions_to_attempt, questions_attempted
+        return date_only, topic, difficulty, questions_to_attempt, questions_attempted, questions_present_list
         
         
 
-class LessonPlan(APIView):
+class LessonPlanView(APIView):
     def post(self, request):
         username = request.data.get('username')
         # Retrieve the lesson plan for the current user
         lesson_plan = LessonPlan.objects.filter(username=username).first()
+       # lesson_plan = lesson_plan.first()
+
+        print("lesson plan" , lesson_plan)
+
+        
 
         if lesson_plan:
+
+           
             # Serialize the lesson plan data
             lesson_plan_data = {
                 "topic": lesson_plan.topic,
@@ -483,7 +493,13 @@ class LessonPlan(APIView):
                 "completed": lesson_plan.completed
             }
 
-            return Response(lesson_plan_data)
+            print(lesson_plan_data)
+
+            response_data = {"lesson_plan_info": lesson_plan_data}
+
+            return Response(response_data)
+
+            #return Response(lesson_plan_data)
         else:
             return Response({"message": "No lesson plan found for the current user"}, status=404)
     
