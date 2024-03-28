@@ -1,7 +1,7 @@
 from rest_framework import status
 from collections import defaultdict
 import requests
-
+import threading
 from django.shortcuts import render
 from rest_framework.views import APIView
 from datetime import date
@@ -16,22 +16,15 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
-from . import LessonPlanner as lp
 import csv
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.decorators import login_required
 from django.middleware.csrf import get_token
+from . import LessonPlanner as lp
 
 messages = []
 
 today_date = date.today()
-experience_level = 0
-frequency = 0
-
-
-# lessonplan = lpg.generate_initial_lesson_plan()
-
-# lessonplan = lpg.generate_updated_lesson_plan()
 
 
 # Create your views here.
@@ -51,36 +44,32 @@ class Login(APIView):
 
         if user is not None:
             # If authentication succeeds, log in the user
-            login(request, user)
-            # with open('.\\QAs\\questions.csv', newline='', encoding='utf-8') as csvfile:
+            login(request, user)   
+
+            return JsonResponse({"message": "Login successful"})
+        else:
+            # If authentication fails, return error response
+            return JsonResponse({"error": "Invalid username or password"}, status=status.HTTP_400_BAD_REQUEST)
     
-            #     reader = csv.DictReader(csvfile)
-            #     for row in reader:
-            #         question_text = row['Question']
-            #         difficulty = row['Difficulty']
-            #         topic = row['Topic']
-            #         score = row['Score']
-                    
+class ProgressTracking(APIView):
+    def post(self, request):
+        username = request.data.get('username')
 
-            #         # Create the question
-            #         question = Question.objects.create(question_text=question_text, difficulty=difficulty, topic=topic)
+        if username is not None:
 
-            #         # Associate the question with the user
-            #         UserQuestion.objects.create(user_username=username, question=question, score=score)
-            attempted_counts_by_topic_and_difficulty = self.calculate_attempted_counts(request.user)
+            attempted_counts_by_topic_and_difficulty = self.calculate_attempted_counts(username)
             attempted_counts_json = json.dumps(attempted_counts_by_topic_and_difficulty)
             #variables_data = attempted_counts_by_topic_and_difficulty.get('Variables', {})
                     
-            print("Attempted counts by topic and difficulty:", attempted_counts_by_topic_and_difficulty)
-            #return JsonResponse({"message": "Login successful"})
-            #return JsonResponse({"Variables": variables_data})
+            #print("Attempted counts by topic and difficulty:", attempted_counts_by_topic_and_difficulty)
+
             return JsonResponse({"attempted_counts": attempted_counts_json})
         else:
             # If authentication fails, return error response
             return JsonResponse({"error": "Invalid username or password"}, status=status.HTTP_400_BAD_REQUEST)
 
     
-    def calculate_attempted_counts(self, current_user):
+    def calculate_attempted_counts(self, username):
         # List of all topics
         topics = ['Variables', 'Arithmetic', 'Functions', 'If-else', 'Loops', 'Arrays']
 
@@ -92,7 +81,7 @@ class Login(APIView):
 
         
         
-        print(f"User: {current_user.username}")
+        print(f"User: {username}")
         
         #Loop through each topic
         for topic in topics:
@@ -103,7 +92,7 @@ class Login(APIView):
             for difficulty in difficulties:
                 # Count the number of questions attempted for each topic and difficulty
                 attempted_count = UserQuestion.objects.filter(
-                    user_username=current_user.username,
+                    user_username=username,
                     question__topic=topic,
                     question__difficulty=difficulty,
 
@@ -140,8 +129,6 @@ class Signup(APIView):
         first_name = request.data.get('first_name')
         last_name = request.data.get('last_name')
         
-        
-
         # Check if all required fields are provided
         if not (username and password and email and first_name and last_name):
             return Response({"error": "All fields are required"}, status=status.HTTP_400_BAD_REQUEST)
@@ -154,9 +141,25 @@ class Signup(APIView):
         user = User.objects.create_user(username=username, password=password, email=email, first_name=first_name, last_name=last_name)
         
         if user:
-            #from . import QuestionGeneratorv3 as qg #generates the questions for the user
-            #qg.generate_questions_and_save()
-            
+            # Function to run in a separate thread
+            def run_background_task():
+                from . import QuestionGeneratorv3 as qg
+                qg.generate_questions_and_save()
+                with open('.\\QAs\\questions.csv', newline='', encoding='utf-8') as csvfile:
+                    reader = csv.DictReader(csvfile)
+                    for row in reader:
+                        question_text = row['Question']
+                        difficulty = row['Difficulty']
+                        topic = row['Topic']
+                        score = row['Score']
+                        # Create the question
+                        question = Question.objects.create(question_text=question_text, difficulty=difficulty, topic=topic)
+                        # Associate the question with the user
+                        UserQuestion.objects.create(user_username=username, question=question, score=score) 
+
+            # Run the function in a separate thread
+            thread = threading.Thread(target=run_background_task)
+            thread.start()
             
             return Response({"message": "Signup successful"}, status=status.HTTP_201_CREATED)
         else:
@@ -303,35 +306,34 @@ class UserQuestionsDisplay(APIView):
     #permission_classes = [IsAuthenticated]  # Ensure user is authenticated
 
     def post(self,request):
-        # Get the current user
-        current_user = request.user
-
         # Retrieve the first user question of the specified topic and difficulty with a false score
         try:
             user_question = UserQuestion.objects.filter(
-                user_username=current_user.username, 
+                user_username=request.data.get("username"), 
                 question__topic=request.data.get("topic"), 
                 question__difficulty=request.data.get("difficulty"),
                 score=False
             ).first()
-            print("currentuser")
-            print(current_user.username)
+
+            print(user_question.question.question_text)
+
+            if user_question:
+                question_text = user_question.question.question_text
+
+                question_text = question_text.replace("(reworded)", "").replace("(with modified values)", "")
+
+                # Remove anything before ":" and including ":"
+                if ':' in question_text:
+                    question_text = question_text.split(':', 1)[-1].strip()
 
             # If a user question is found, serialize its data
             if user_question:
-
-                # Return response
-                response_data = {
-                    'user_question': user_question.question.question_text
-                }
-                return JsonResponse(response_data)
+                return Response(question_text)
             else:
                 return JsonResponse({'message': 'No matching question found for the current user, topic, and difficulty'}, status=404)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
         
-
-
 
 class UpdateScore(APIView):
     def post(self, request):
@@ -353,67 +355,55 @@ class UpdateScore(APIView):
             return Response({"error": "Question does not exist."}, status=404)
         except Exception as e:
             return Response({"error": str(e)}, status=500)
-        
+
+
+
 class Preferences(APIView):
     def post(self, request):
-        current_user = request.user
-        experience_level = request.data.get('experienceLevel') # Convert to int
-        frequency = request.data.get('frequency')
-
-        # experience_instance, created = experience.objects.get_or_create(username="hassan")
-
-        # # Update the fields if the instance is not created newly
-        # if not created:
-        #     experience_instance.experience_level = experience_level
-        #     experience_instance.preferred_frequency = frequency
-        #     experience_instance.save()
-
         
-
-
-        experience_instance = experience.objects.create(
-        username="hassang",
-        experience_level=experience_level,
-        preferred_frequency=frequency
+        experience_level = request.data.get('experienceLevel')
+        preferred_frequency = request.data.get('frequency')
+        username = request.data.get('username')
+        
+        experience.objects.create(
+            username=username,
+            experience_level=experience_level,
+            preferred_frequency=preferred_frequency
         )
 
-        print("experience" , experience_instance)
+            
+        lesson_plan_data = lp.generate_initial_lesson_plan(experience_level, preferred_frequency)
 
-        # lesson_plan_data = lp.generate_initial_lesson_plan(experience_level, frequency)
+        print(lesson_plan_data)
+        date_only, topic, difficulty, questions_to_attempt, questions_attempted = self.parse_lesson_plan_data(lesson_plan_data)
 
-        # print(lesson_plan_data)
+        #self.save_to_database(current_user.username , date_only, topic, difficulty, questions_attempted, questions_to_attempt, lesson_plan_data)
 
-        # date_only, topic, difficulty, questions_to_attempt, questions_attempted = self.parse_lesson_plan_data(lesson_plan_data)
+        print("Date Only:", date_only)
+        print("Topic:", topic)
+        print("Difficulty:", difficulty)
+        print("Questions to Attempt:", questions_to_attempt)
+        print("Questions Attempted:", questions_attempted)
 
-        # #self.save_to_database(current_user.username , date_only, topic, difficulty, questions_attempted, questions_to_attempt, lesson_plan_data)
+        lesson_plan_instance, previous_lesson_plan_instance = self.save_to_database(username , date_only, topic, difficulty, questions_attempted, questions_to_attempt, lesson_plan_data)
 
-        # print("Date Only:", date_only)
-        # print("Topic:", topic)
-        # print("Difficulty:", difficulty)
-        # print("Questions to Attempt:", questions_to_attempt)
-        # print("Questions Attempted:", questions_attempted)
+        print("Lesson Plan Instance:", lesson_plan_instance)
+        print("Previous Lesson Plan Instance:", previous_lesson_plan_instance)
 
-        # lesson_plan_instance, previous_lesson_plan_instance = self.save_to_database(current_user.username , date_only, topic, difficulty, questions_attempted, questions_to_attempt, lesson_plan_data)
+        if date_only == today_date:
+            lesson_plan_info = {
+            "Date Only": date_only,
+            "Topic": topic,
+            "Difficulty": difficulty,
+            "Questions to Attempt": questions_to_attempt,
+            "Questions Attempted": questions_attempted
+    }
 
-        # print("Lesson Plan Instance:", lesson_plan_instance)
-        # print("Previous Lesson Plan Instance:", previous_lesson_plan_instance)
-
-    #     if date_only == today_date:
-    #         lesson_plan_info = {
-    #         "Date Only": date_only,
-    #         "Topic": topic,
-    #         "Difficulty": difficulty,
-    #         "Questions to Attempt": questions_to_attempt,
-    #         "Questions Attempted": questions_attempted
-    # }
-
-        return JsonResponse("Successful", status=status.HTTP_200_OK)
+        return JsonResponse({"message": "Preferences saved successfully"})
     
 
     def save_to_database(self, username, date_only, topic, difficulty, questions_attempted, questions_to_attempt, lesson_plan_data):
     # Parse lesson_plan_data
-        
-        
 
         previous_lesson_plan_instance = Previous_LessonPlan.objects.create(
             timestamp=date_only,
@@ -476,5 +466,24 @@ class Preferences(APIView):
         
         
 
+class LessonPlan(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        # Retrieve the lesson plan for the current user
+        lesson_plan = LessonPlan.objects.filter(username=username).first()
 
+        if lesson_plan:
+            # Serialize the lesson plan data
+            lesson_plan_data = {
+                "topic": lesson_plan.topic,
+                "difficulty": lesson_plan.difficulty,
+                "questions_to_attempt": lesson_plan.questions_to_attempt,
+                "questions_attempted": lesson_plan.questions_attempted,
+                "date_created": lesson_plan.date_created,
+                "completed": lesson_plan.completed
+            }
+
+            return Response(lesson_plan_data)
+        else:
+            return Response({"message": "No lesson plan found for the current user"}, status=404)
     
