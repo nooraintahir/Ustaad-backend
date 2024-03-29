@@ -10,7 +10,7 @@ import json
 from rest_framework import viewsets
 from .models import  User, Question, Add_Question, UserQuestion , experience , Previous_LessonPlan , LessonPlan
 from rest_framework.response import Response
-import g4f
+from gpt4all import GPT4All
 from rest_framework import status
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
@@ -20,6 +20,7 @@ import csv
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.decorators import login_required
 from django.middleware.csrf import get_token
+from django.core.exceptions import ObjectDoesNotExist
 
 
 messages = []
@@ -232,15 +233,14 @@ class ChatView(APIView):
         return Response({"message": model_reply})
 
     def chat_with_model(self, messages):
-        # Use the conversation as multiple messages
-        response = g4f.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=messages,
-            temperature=0.7,
-            max_tokens=5000,
-        )
-
-        return response
+        try:
+            model = GPT4All("orca-mini-3b-gguf2-q4_0.gguf")
+            with model.chat_session():
+                response = model.generate(prompt=messages[0]['content'], temp=0.7)
+            return response
+        except Exception as e:
+            return f"Error: {e}"
+        
 class SmartCompiler(APIView):
     def get(self, request):
         # You can return initial data or instructions for the chat here
@@ -248,10 +248,10 @@ class SmartCompiler(APIView):
 
     def post(self, request):
         # Extract user input from the request data
-        user_input = request.data.get('user_input', '')
+        user_input = request.data.get('user_input')
 
         # Check if the user wants to exit the chat
-        if user_input.lower() == 'exit':
+        if user_input == 'exit':
             return Response({"message": "Goodbye!"})
 
 
@@ -264,17 +264,22 @@ class SmartCompiler(APIView):
 
         # Return the model's reply as a response
         return Response({"message": model_reply})
-
     def chat_with_model(self, messages):
-        # Use the conversation as multiple messages
-        response = g4f.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=messages,
-            temperature=0.7,
-            max_tokens=5000,
-        )
+        try:
+            model = GPT4All("orca-mini-3b-gguf2-q4_0.gguf")
+            with model.chat_session():
+                response = model.generate(prompt=messages[0]['content'], temp=0.7)
 
-        return response
+            # Extracting "Yes" or "No" from the response
+            if "Yes" in response:
+                return "Yes"
+            elif "No" in response:
+                return "No"
+            else:
+                return "Error: Could not determine response"
+        
+        except Exception as e:
+            return f"Error: {e}"
 
 class SendQuestion(APIView):
     def post(self, request, *args, **kwargs):
@@ -337,21 +342,34 @@ class UserQuestionsDisplay(APIView):
 
 class UpdateScore(APIView):
     def post(self, request):
-        question_id = request.data.get('questionId')
+        quest = request.data.get('question')
+        topic = request.data.get('topic')
+        if topic == "ArithmeticOperations":
+            topic = "Arithmetic"
+        elif topic == "If-elseStatements":
+            topic = "If-else"
+        difficulty = request.data.get('difficulty')
+        username = request.data.get('username')
         try:
             # Retrieve the UserQuestion object and update the score field
-            user_question = UserQuestion.objects.get(pk=question_id)
+            user_question = UserQuestion.objects.get(user_username=username, question__question_text=quest)
             user_question.score = True
             user_question.save()
 
-            # Calculate attempted counts for each topic and difficulty
-            #attempted_counts_by_topic_and_difficulty = self.calculate_attempted_counts(request.user)
+            # Check if the lesson plan exists
+            try:
+                lessonplan = LessonPlan.objects.get(username=username, topic=topic, difficulty=difficulty)
+                if lessonplan.questions_attempted < lessonplan.questions_to_attempt:
+                    lessonplan.questions_attempted += 1
+                    lessonplan.save()
+                if lessonplan.questions_attempted == lessonplan.questions_to_attempt:
+                    lessonplan.completed = 1
+                    lessonplan.save()
+            except LessonPlan.DoesNotExist:
+                pass  # Lesson plan doesn't exist, do nothing
 
-            return Response({
-                "message": "Score updated successfully.",
-               # "attempted_counts": attempted_counts_by_topic_and_difficulty
-            })
-        except UserQuestion.DoesNotExist:
+            return Response({"message": "Score updated successfully."})
+        except ObjectDoesNotExist:
             return Response({"error": "Question does not exist."}, status=404)
         except Exception as e:
             return Response({"error": str(e)}, status=500)
