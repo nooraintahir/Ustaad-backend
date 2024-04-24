@@ -352,9 +352,11 @@ class UpdateScore(APIView):
         username = request.data.get('username')
         try:
             # Retrieve the UserQuestion object and update the score field
-            user_question = UserQuestion.objects.get(user_username=username, question__question_text=quest)
-            user_question.score = True
-            user_question.save()
+            user_questions = UserQuestion.objects.filter(user_username=username, question__question_text=quest)
+
+            for user_question in user_questions:
+                user_question.score = True
+                user_question.save()
 
             # Check if the lesson plan exists
             try:
