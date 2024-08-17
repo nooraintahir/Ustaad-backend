@@ -236,7 +236,7 @@ class ChatView(APIView):
         try:
             model = GPT4All("orca-mini-3b-gguf2-q4_0.gguf")
             with model.chat_session():
-                response = model.generate(prompt=messages[0]['content'], temp=0.7)
+                response = model.generate(prompt=messages[0]['content'], temp=0.4)
             return response
         except Exception as e:
             return f"Error: {e}"
@@ -254,8 +254,9 @@ class SmartCompiler(APIView):
         if user_input == 'exit':
             return Response({"message": "Goodbye!"})
 
-
-        prompt = "Is the code related to the question? Reply ONLY with either 'Yes' or 'No' and Disregard any syntax errors or issues and focus solely on the conceptual connection between the code and the question."
+        user_input = ''.join([str(item) for item in user_input])
+        print(user_input)
+        prompt = "Does the provided code directly ADDRESS the question in C++ ONLY? Please reply with either 'Yes' or 'No'. Disregard any syntax errors or issues and focus solely on whether the code solves the given question."
         # Add the user's message to the conversation
         input_message = [{"role": "user", "content": prompt+ user_input}]
 
@@ -268,9 +269,10 @@ class SmartCompiler(APIView):
         try:
             model = GPT4All("orca-mini-3b-gguf2-q4_0.gguf")
             with model.chat_session():
-                response = model.generate(prompt=messages[0]['content'], temp=0.7)
+                response = model.generate(prompt=messages[0]['content'], temp=0.2, max_tokens=5, top_k=20, top_p=0.3)
 
             # Extracting "Yes" or "No" from the response
+            print(response)
             if "Yes" in response:
                 return "Yes"
             elif "No" in response:
@@ -280,6 +282,7 @@ class SmartCompiler(APIView):
         
         except Exception as e:
             return f"Error: {e}"
+
 
 class SendQuestion(APIView):
     def post(self, request, *args, **kwargs):
